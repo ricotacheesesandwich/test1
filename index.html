@@ -1,0 +1,963 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>청년환생교육원</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="./script.js" defer></script>
+  </head>
+
+  <body>
+    <!-- =========================================================
+       HEADER: 로고와 상단 내비게이션
+       ========================================================= -->
+    <header class="header">
+      <div class="header__inner">
+        <a class="header__logo" href="#top">
+          <img
+            alt="청년환생교육원 로고"
+            class="header__logo-img"
+            src="img/환생원 자료 모음/로고.png"
+          />
+          <span>청년환생교육원</span>
+        </a>
+
+        <nav class="header__nav">
+          <a class="is-active" href="index.html">소개</a>
+          <a href="index1.html">커뮤니티</a>
+          <a href="index3.html">시스템</a>
+        </nav>
+      </div>
+    </header>
+
+    <!-- =========================================================
+       ALARM POPUP: 페이지 진입 시 표시되는 경고 팝업
+       ========================================================= -->
+    <section
+      aria-labelledby="alarmTitle"
+      aria-describedby="alarmDesc"
+      aria-modal="true"
+      class="alarm-modal"
+      data-alarm-modal
+      role="dialog"
+    >
+      <section class="alarm" id="alarmBox" role="document">
+        <div aria-hidden="true" class="alarm__icon">
+          <svg
+            fill="none"
+            viewBox="0 0 64 58"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M32 4L60 54H4L32 4Z"
+              stroke="currentColor"
+              stroke-linejoin="round"
+              stroke-width="4"
+            ></path>
+            <path
+              d="M32 21V36"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-width="5"
+            ></path>
+            <circle cx="32" cy="45" fill="currentColor" r="3"></circle>
+          </svg>
+        </div>
+
+        <p class="alarm__label" id="alarmTitle">경고 알림</p>
+
+        <p class="alarm__message" id="alarmDesc">
+          [당신의 최종 판결이 유예되었습니다.]
+        </p>
+
+        <p class="alarm__sub">judgment deferred · awaiting instruction</p>
+
+        <button class="alarm__confirm" data-alarm-close type="button">
+          확인
+        </button>
+      </section>
+    </section>
+
+    <!-- =========================================================
+       MAIN: 페이지 본문 시작
+       ========================================================= -->
+    <main id="top">
+      <!-- =======================================================
+         HERO: 첫 화면
+         ======================================================= -->
+      <section class="hero">
+        <div class="layout hero__layout">
+          <header class="hero__content reveal">
+            <p class="hero__kicker">저승환생공단 · 제1096-청년호</p>
+
+            <h1>청년환생교육원</h1>
+
+            <p class="hero__sub">수신 · 사망일 기준 1096일 이내의 청년 혼령</p>
+          </header>
+        </div>
+      </section>
+
+      <!-- =======================================================
+         INTRO: 세계관 소개 문단
+         ======================================================= -->
+      <section class="intro" id="intro">
+        <div class="layout intro__layout">
+          <article class="intro__block intro__block--first reveal">
+            <p class="intro__label">친애하는 혼령 여러분께.</p>
+
+            <h2>
+              여러분들은 이미
+              <span class="word-death">한 번 죽은 목숨</span>
+              입니다.
+            </h2>
+
+            <p>
+              어쩌다, 어떤 일을 당해서 그 젊은 나이에 유명을 달리하였는지.
+              <br />
+              저마다의 사정을 가지고 이곳,
+              <span class="word-afterlife">저승</span>
+              에 도착했을 테지요.
+            </p>
+          </article>
+
+          <article class="intro__block intro__block--second reveal">
+            <h2>21세기 현대의 대한민국.</h2>
+
+            <p>
+              청년 실업, 청년 자살, 청년 고독사… 온갖 부정적 단어들이
+              <br />
+              푸르고 찬란한 젊은이들의 현실을 수식합니다.
+            </p>
+          </article>
+
+          <article class="intro__block intro__block--third reveal">
+            <h2>
+              그리고 이를 보다 못한 저승에서는 딱한 사정을 가진
+              <br />
+              젊은 혼령들에게
+              <span class="word-chance">한 번 더 기회</span>
+              를 주기로 했습니다.
+            </h2>
+          </article>
+        </div>
+      </section>
+
+      <!-- =======================================================
+         INSTITUTE: 환생원 명칭 소개
+         ======================================================= -->
+      <section class="institute">
+        <article class="layout institute__layout reveal">
+          <header class="institute__content">
+            <h2>청년환생교육원</h2>
+
+            <p class="institute__short">줄여서</p>
+
+            <h3>환생원</h3>
+
+            <p class="institute__desc">
+              높으신 저승신들의 하해와 같은 은혜로 지어진 최신교육시설,
+              <br />
+              뭐 그런 거라고 합니다.
+            </p>
+          </header>
+        </article>
+      </section>
+
+      <!-- =======================================================
+         ADMISSION: 입학기준과 환생자격시험 안내
+         ======================================================= -->
+      <section class="admission" id="community">
+        <div class="layout admission__layout">
+          <article class="admission__copy admission__criteria reveal">
+            <h2>환생원 입학기준은 다음과 같습니다.</h2>
+
+            <ol>
+              <li>사망일 기준 1096일이 지나지 않은 혼령.</li>
+              <li>만 18세에서 만 29세 사이에 사망한 혼령.</li>
+            </ol>
+          </article>
+
+          <article class="admission__copy admission__qualification reveal">
+            <p>
+              해당 조건에 충족하는 혼령들은
+              <span>환생원에 입학할 기회가 주어지며,</span>
+              <br />
+              담당 차사들에게 일 년간의 교육을 받은 혼령들은
+              <span>환생자격시험</span>
+              을
+              <br />
+              응시 후 합격하면 원하는 조건에서
+              <span>다시 태어날 수 있습니다.</span>
+              <br />
+              <br />
+              입학 후 최대 3회, 조건만 충족한다면 시험은 매년 재응시 가능합니다.
+            </p>
+          </article>
+
+          <article class="admission__final reveal">
+            <p class="admission__lead">비록 그 확률이 높지 않다고 하더라도,</p>
+
+            <h2>
+              이렇게 죽는 것보단
+              <br />
+              낫지 않겠나요.
+            </h2>
+
+            <p class="admission__note">
+              환생하지 못하더라도, 환생원에서 우수한 성적을 거두며 좋은 평가를
+              받은 혼령은
+              <br />
+              저승에서의 취업 자리를 마련해주기도 한다고 해요.
+            </p>
+
+            <p class="admission__sender">
+              발신 · 저승환생공단 산하 청년환생교육원
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <!-- =======================================================
+         EDUCATION: 필수 이수 교육 안내
+         ======================================================= -->
+      <section class="education" id="system">
+        <div class="layout">
+          <header class="section-head education__head reveal">
+            <h2>필수 이수 교육 안내</h2>
+
+            <p>
+              아래는 환생원 입학 전 필수로 거쳐야 할 과정을 요약한 내용입니다.
+              <br />
+              입학 신청 시, 반드시 아래 세 개의 과정을 전부 완료하였는지
+              확인하시기 바랍니다.
+            </p>
+          </header>
+
+          <div class="education__cards">
+            <article class="education__card reveal">
+              <span>01</span>
+
+              <figure class="education__image">
+                <img
+                  alt="자격 확인 절차 이미지"
+                  src="img\환생원 자료 모음\신분증.png"
+                />
+              </figure>
+
+              <h3>자격 확인 절차</h3>
+
+              <p>
+                주민등록증, 여권, 학생증 등 생년월일이 포함되어 있는 모든 종류의
+                신분증 중 하나를 준비합니다. 생년과 뒷번호 일곱자리 중 첫번째
+                숫자만 보이게 사진을 찍습니다. 이후 신청서 제출 시 함께
+                첨부하여야 합니다.
+              </p>
+            </article>
+
+            <article class="education__card reveal">
+              <span>02</span>
+
+              <figure class="education__image">
+                <img
+                  alt="입학 신청서 작성 절차 이미지"
+                  src="img\환생원 자료 모음\입학 신청서 작성 절차.svg"
+                />
+              </figure>
+
+              <h3>입학 신청서 작성 절차</h3>
+
+              <p>
+                홈페이지에 기재된 신청서의 양식을 꼼꼼이 살펴 입학 신청서를
+                작성합니다. 입학 신청 작성 시, 공지에 기재된 양식과 안내 자료
+                등을 숙지하고 작성하시는 것을 권장드립니다.
+              </p>
+            </article>
+
+            <article class="education__card reveal">
+              <span>03</span>
+
+              <figure class="education__image">
+                <img
+                  alt="공지·서약서 확인 절차 이미지"
+                  src="img\환생원 자료 모음\공식서약서 확인절차 이미지.svg"
+                />
+              </figure>
+
+              <h3>공지·서약서 확인 절차</h3>
+
+              <p>
+                홈페이지에 기재된 공지 및 주의 요소에 대한 사항을 다시 한 번
+                숙지한 뒤에 서약서를 작성합니다. 환생원은 서약서를 충분히
+                숙지하지 않았을 시 발생하는 문제에 대해서 책임지지 않습니다.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- =======================================================
+         PROMO: 홍보영상 영역
+         ======================================================= -->
+      <section class="promo">
+        <article class="layout promo__layout reveal">
+          <header class="promo__content">
+            <p class="promo__label">REBIRTH ACADEMY</p>
+
+            <h2>
+              청년환생교육원
+              <br />
+              홍보영상
+            </h2>
+
+            <p>
+              청년환생교육원 제120기 모집 홍보영상입니다.
+              <br />
+              본 영상은 사망일 기준 1096일 이내, 만 18세 이상 만 29세 이하의
+              <br />
+              성인 혼령을 대상으로 하는 청년환생교육원의 지원 대상 및 모집
+              <br />
+              일정을 안내합니다.
+              <br />
+              지원 기간은 7월 13일 0:00부터 7월 16일 21:00까지입니다.
+            </p>
+          </header>
+
+          <figure class="promo__video">
+            <img alt="청년환생교육원 홍보영상 이미지" src="홍보영상.png" />
+          </figure>
+        </article>
+      </section>
+
+      <!-- =======================================================
+         SCHEDULE SLIDER: 학사 일정 / 러닝 일정 / 수위표
+         ======================================================= -->
+      <section class="schedule" id="schedule-gallery">
+        <section
+          aria-label="학사 일정, 러닝 일정, 수위표 슬라이더"
+          class="slider reveal"
+        >
+          <header class="slider__fixed-head">
+            <button
+              aria-label="이전 페이지 보기"
+              class="slider__arrow slider__prev"
+              type="button"
+            >
+              &lt;
+            </button>
+
+            <div class="slider__title-area">
+              <section
+                class="slider__title-panel is-active"
+                data-slide-title="0"
+              >
+                <p class="section-kicker">REBIRTH ACADEMY</p>
+                <h2>학사 일정</h2>
+                <p>주요 학사 일정을 확인할 수 있습니다.</p>
+              </section>
+
+              <section class="slider__title-panel" data-slide-title="1">
+                <p class="section-kicker">REBIRTH ACADEMY</p>
+                <h2>러닝 일정</h2>
+                <p>환생 적합도 평가 기간은 총 5일간 진행됩니다.</p>
+              </section>
+
+              <section class="slider__title-panel" data-slide-title="2">
+                <p class="section-kicker">CONTENT RATING GUIDE</p>
+                <h2>수위표</h2>
+                <p>방송통신심의위원회 Safe Net 등급 기준 참고</p>
+              </section>
+            </div>
+
+            <button
+              aria-label="다음 페이지 보기"
+              class="slider__arrow slider__next"
+              type="button"
+            >
+              &gt;
+            </button>
+          </header>
+
+          <div aria-live="polite" class="slider__viewport" role="region">
+            <div class="slider__track" role="list">
+              <article class="slider__slide is-active" data-slide="0">
+                <section class="layout slider__layout">
+                  <article
+                    aria-label="2026년 7월 학사 일정표"
+                    class="calendar calendar--fixed"
+                  >
+                    <h3 class="calendar__month">
+                      <time datetime="2026-07">2026.07</time>
+                    </h3>
+
+                    <section
+                      aria-label="2026년 7월 일정"
+                      class="calendar__table"
+                    >
+                      <header aria-label="요일" class="calendar__weekdays">
+                        <span>SUN</span>
+                        <span>MON</span>
+                        <span>TUE</span>
+                        <span>WED</span>
+                        <span>THU</span>
+                        <span>FRI</span>
+                        <span>SAT</span>
+                      </header>
+
+                      <div aria-hidden="true" class="calendar__rule"></div>
+
+                      <section
+                        aria-label="7월 5일부터 7월 11일까지"
+                        class="calendar__week"
+                      >
+                        <article class="calendar__day is-muted">
+                          <time datetime="2026-07-05">05</time>
+                        </article>
+
+                        <article class="calendar__day is-muted">
+                          <time datetime="2026-07-06">06</time>
+                        </article>
+
+                        <article class="calendar__day is-muted">
+                          <time datetime="2026-07-07">07</time>
+                        </article>
+
+                        <article class="calendar__day is-muted">
+                          <time datetime="2026-07-08">08</time>
+                        </article>
+
+                        <article class="calendar__day is-muted">
+                          <time datetime="2026-07-09">09</time>
+                        </article>
+
+                        <article class="calendar__day is-muted">
+                          <time datetime="2026-07-10">10</time>
+                        </article>
+
+                        <article class="calendar__day has-badge">
+                          <time
+                            class="calendar__date-badge is-brown"
+                            datetime="2026-07-11"
+                          >
+                            <span
+                              class="calendar__badge-number calendar__badge-number--11"
+                              >11</span
+                            >
+                          </time>
+                          <time class="calendar__time">22:00</time>
+                          <strong>소수선점 5명</strong>
+                          <small>전년도 환생적합도 평가</small>
+                          <small>참여자 대상 선점</small>
+                        </article>
+                      </section>
+
+                      <div aria-hidden="true" class="calendar__rule"></div>
+
+                      <section
+                        aria-label="7월 12일부터 7월 18일까지"
+                        class="calendar__week calendar__week--main"
+                      >
+                        <article
+                          class="calendar__day has-badge calendar__day--12"
+                        >
+                          <time
+                            class="calendar__date-badge is-brown"
+                            datetime="2026-07-12"
+                          >
+                            <span class="calendar__badge-number">12</span>
+                          </time>
+                          <time class="calendar__time">23:00</time>
+                          <strong>NPC/MPC</strong>
+                          <strong>프로필 공개</strong>
+                        </article>
+
+                        <article
+                          class="calendar__day calendar__range-day calendar__range--brown is-range-start"
+                        >
+                          <time
+                            class="calendar__range-date"
+                            datetime="2026-07-13"
+                          >
+                            13
+                          </time>
+                          <time class="calendar__time">00:00</time>
+                          <strong>가개장</strong>
+                        </article>
+
+                        <article
+                          class="calendar__day calendar__range-day calendar__range--brown"
+                        >
+                          <time
+                            class="calendar__range-date"
+                            datetime="2026-07-14"
+                          >
+                            14
+                          </time>
+                        </article>
+
+                        <article
+                          class="calendar__day calendar__range-day calendar__range--brown is-range-end"
+                        >
+                          <time
+                            class="calendar__range-date"
+                            datetime="2026-07-15"
+                          >
+                            15
+                          </time>
+                        </article>
+
+                        <article
+                          class="calendar__day calendar__range-day calendar__range--navy is-range-start calendar__day--16"
+                        >
+                          <time
+                            class="calendar__date-badge is-ring"
+                            datetime="2026-07-16"
+                          >
+                            <span class="calendar__badge-number">16</span>
+                          </time>
+                          <time class="calendar__time">21:00</time>
+                          <strong>프로필 접수</strong>
+                          <strong>마감</strong>
+                          <time class="calendar__time is-later">22:00</time>
+                          <strong>개장</strong>
+                        </article>
+
+                        <article
+                          class="calendar__day calendar__range-day calendar__range--navy"
+                        >
+                          <time
+                            class="calendar__range-date"
+                            datetime="2026-07-17"
+                          >
+                            17
+                          </time>
+                          <strong>1일차</strong>
+                          <small>인트로 및 하이로그</small>
+                          <small>설문조사</small>
+                        </article>
+
+                        <article
+                          class="calendar__day calendar__range-day calendar__range--navy is-range-end"
+                        >
+                          <time
+                            class="calendar__range-date"
+                            datetime="2026-07-18"
+                          >
+                            18
+                          </time>
+                          <strong>2일차</strong>
+                          <small>???? 오픈</small>
+                          <small>꽃놀이패 오픈</small>
+                        </article>
+                      </section>
+
+                      <div aria-hidden="true" class="calendar__rule"></div>
+
+                      <section
+                        aria-label="7월 19일부터 7월 25일까지"
+                        class="calendar__week calendar__week--main"
+                      >
+                        <article
+                          class="calendar__day calendar__range-day calendar__range--navy is-range-start"
+                        >
+                          <time
+                            class="calendar__range-date"
+                            datetime="2026-07-19"
+                          >
+                            19
+                          </time>
+                          <strong>3일차</strong>
+                          <small>1:1 허용</small>
+                          <small>공공재 게임</small>
+                        </article>
+
+                        <article
+                          class="calendar__day calendar__range-day calendar__range--navy"
+                        >
+                          <time
+                            class="calendar__range-date"
+                            datetime="2026-07-20"
+                          >
+                            20
+                          </time>
+                          <strong>4일차</strong>
+                          <small>포인트 양도 기간</small>
+                          <small>*중간 결과 발표</small>
+                        </article>
+
+                        <article
+                          class="calendar__day calendar__range-day calendar__range--navy is-range-end"
+                        >
+                          <time
+                            class="calendar__range-date"
+                            datetime="2026-07-21"
+                          >
+                            21
+                          </time>
+                          <strong>5일차</strong>
+                          <small>포인트 양도 기간</small>
+                          <small>환생자 명단 공개</small>
+                          <time class="calendar__time is-ending">22:30</time>
+                          <strong>엔딩</strong>
+                        </article>
+
+                        <article class="calendar__day is-muted">
+                          <time datetime="2026-07-22">22</time>
+                        </article>
+
+                        <article class="calendar__day is-muted">
+                          <time datetime="2026-07-23">23</time>
+                        </article>
+
+                        <article class="calendar__day is-muted">
+                          <time datetime="2026-07-24">24</time>
+                        </article>
+
+                        <article class="calendar__day is-muted">
+                          <time datetime="2026-07-25">25</time>
+                        </article>
+                      </section>
+                    </section>
+                  </article>
+                </section>
+              </article>
+
+              <article class="slider__slide" data-slide="1">
+                <section class="layout slider__layout">
+                  <section aria-label="러닝 일정 목록" class="run">
+                    <div class="run__track"></div>
+
+                    <article class="run__item">
+                      <div class="run__dot"></div>
+                      <div class="run__card">
+                        <div class="run__day">
+                          <span>DAY</span>
+                          <strong>01</strong>
+                        </div>
+                        <div class="run__main">
+                          인트로 및 하이로그
+                          <br />
+                          설문조사
+                        </div>
+                        <div class="run__side">
+                          <span>SYSTEM</span>
+                          <strong>첫날 공지</strong>
+                        </div>
+                      </div>
+                    </article>
+
+                    <article class="run__item">
+                      <div class="run__dot"></div>
+                      <div class="run__card">
+                        <div class="run__day">
+                          <span>DAY</span>
+                          <strong>02</strong>
+                        </div>
+                        <div class="run__main">
+                          ???? 오픈
+                          <br />
+                          꽃놀이 패 오픈
+                        </div>
+                        <div class="run__side">
+                          <span>SYSTEM</span>
+                          <strong>특수 시스템</strong>
+                        </div>
+                      </div>
+                    </article>
+
+                    <article class="run__item">
+                      <div class="run__dot"></div>
+                      <div class="run__card">
+                        <div class="run__day">
+                          <span>DAY</span>
+                          <strong>03</strong>
+                        </div>
+                        <div class="run__main">1:1 허용</div>
+                        <div class="run__side">
+                          <span>SYSTEM</span>
+                          <strong>공공재 게임</strong>
+                        </div>
+                      </div>
+                    </article>
+
+                    <article class="run__item">
+                      <div class="run__dot"></div>
+                      <div class="run__card">
+                        <div class="run__day">
+                          <span>DAY</span>
+                          <strong>04</strong>
+                        </div>
+                        <div class="run__main">포인트 양도 기간</div>
+                        <div class="run__side">
+                          <span>SYSTEM</span>
+                          <strong>중간 결과 발표</strong>
+                        </div>
+                      </div>
+                    </article>
+
+                    <article class="run__item">
+                      <div class="run__dot"></div>
+                      <div class="run__card">
+                        <div class="run__day">
+                          <span>DAY</span>
+                          <strong>05</strong>
+                        </div>
+                        <div class="run__main">포인트 양도 기간</div>
+                        <div class="run__side">
+                          <span>SYSTEM</span>
+                          <strong>환생자 명단 공개, 엔딩</strong>
+                        </div>
+                      </div>
+                    </article>
+                  </section>
+                </section>
+              </article>
+
+              <article class="slider__slide" data-slide="2">
+                <section class="layout slider__layout">
+                  <article aria-label="콘텐츠 수위 기준표" class="rating">
+                    <header class="rating__meta">
+                      <figure class="rating__icon">
+                        <img
+                          alt="수위표 아이콘 이미지"
+                          src="img\환생원 자료 모음\311699 (1).svg"
+                        />
+                      </figure>
+
+                      <section class="rating__copy">
+                        <h3>콘텐츠 수위 기준</h3>
+                        <p>
+                          콘텐츠의 노출, 성행위, 폭력, 언어, 기타 항목을
+                          기준으로 등급을 분류합니다.
+                        </p>
+                      </section>
+
+                      <aside class="rating__badge">
+                        현재 수위
+                        <strong>2244</strong>
+                      </aside>
+                    </header>
+
+                    <section
+                      aria-label="수위 등급 표"
+                      class="rating__table-wrap"
+                    >
+                      <table class="rating__table">
+                        <thead>
+                          <tr>
+                            <th>등급</th>
+                            <th>노출</th>
+                            <th>성행위</th>
+                            <th>폭력</th>
+                            <th>언어</th>
+                            <th>기타</th>
+                          </tr>
+                        </thead>
+
+                        <tbody>
+                          <tr>
+                            <td class="rating__grade-cell">
+                              <span class="rating__grade rating__grade--4">
+                                4등급
+                              </span>
+                            </td>
+                            <td>성기노출</td>
+                            <td>
+                              성범죄 또는
+                              <br />
+                              노골적인 성행위
+                            </td>
+                            <td>
+                              잔인한 살해
+                              <br />
+                              <em>4등급</em>
+                            </td>
+                            <td>
+                              노골적이고
+                              <br />
+                              외설적인 비속어
+                              <br />
+                              <em>4등급</em>
+                            </td>
+                            <td rowspan="3">
+                              마약 사용 조장
+                              <br />
+                              무기 사용 조장
+                              <br />
+                              도박
+                            </td>
+                          </tr>
+
+                          <tr>
+                            <td class="rating__grade-cell">
+                              <span class="rating__grade rating__grade--3">
+                                3등급
+                              </span>
+                            </td>
+                            <td>전신 노출</td>
+                            <td>
+                              노골적이지
+                              <br />
+                              않은 성행위
+                            </td>
+                            <td>살해</td>
+                            <td>심한 비속어</td>
+                          </tr>
+
+                          <tr>
+                            <td class="rating__grade-cell">
+                              <span class="rating__grade rating__grade--2">
+                                2등급
+                              </span>
+                            </td>
+                            <td>
+                              부분 노출
+                              <br />
+                              <em>2등급</em>
+                            </td>
+                            <td>
+                              착의 상태의
+                              <br />
+                              성적 접촉
+                              <br />
+                              <em>2등급</em>
+                            </td>
+                            <td>상해</td>
+                            <td>거친 비속어</td>
+                          </tr>
+
+                          <tr>
+                            <td class="rating__grade-cell">
+                              <span class="rating__grade rating__grade--1">
+                                1등급
+                              </span>
+                            </td>
+                            <td>노출 복장</td>
+                            <td>격렬한 키스</td>
+                            <td>격투</td>
+                            <td>일상 비속어</td>
+                            <td rowspan="2">
+                              음주 조장
+                              <br />
+                              흡연 조장
+                            </td>
+                          </tr>
+
+                          <tr>
+                            <td class="rating__grade-cell">
+                              <span class="rating__grade rating__grade--0">
+                                0등급
+                              </span>
+                            </td>
+                            <td>노출 없음</td>
+                            <td>성행위 없음</td>
+                            <td>폭력 없음</td>
+                            <td>비속어 없음</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </section>
+                  </article>
+                </section>
+              </article>
+            </div>
+          </div>
+
+          <nav aria-label="슬라이드 위치" class="slider__dots">
+            <button
+              aria-label="학사 일정 보기"
+              class="is-active"
+              data-slide="0"
+              type="button"
+            ></button>
+
+            <button
+              aria-label="러닝 일정 보기"
+              data-slide="1"
+              type="button"
+            ></button>
+
+            <button
+              aria-label="수위표 보기"
+              data-slide="2"
+              type="button"
+            ></button>
+          </nav>
+        </section>
+      </section>
+
+      <!-- =======================================================
+         QUICK LINKS: SNS와 링크 영역
+         ======================================================= -->
+      <section class="quick">
+        <div class="layout quick__layout">
+          <article class="quick__panel reveal">
+            <header class="quick__content">
+              <p class="section-kicker">REBIRTH ACADEMY</p>
+              <h2>SNS</h2>
+              <p>블락 / 1차 확인</p>
+            </header>
+
+            <figure class="quick__asset quick__asset--single">
+              <img
+                alt="SNS 이미지"
+                src="img\환생원 자료 모음\트위터 링크.jpg"
+              />
+            </figure>
+          </article>
+
+          <article class="quick__panel reveal">
+            <header class="quick__content">
+              <p class="section-kicker">REBIRTH ACADEMY</p>
+              <h2>LINK</h2>
+              <p>학생처 / 세계관 / 자료</p>
+            </header>
+
+            <figure class="quick__asset quick__asset--triple">
+              <img
+                alt="성인 확인 링크 이미지"
+                src="img/환생원 자료 모음/네이버_밴드_아이콘.svg"
+              />
+              <img
+                alt="학생처 링크 이미지"
+                src="img\환생원 자료 모음\로고.png"
+              />
+              <img
+                alt="추가 링크 이미지"
+                src="img/환생원 자료 모음/013c6e80c54ae559.png"
+              />
+            </figure>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <!-- =========================================================
+   FOOTER: 안내 문구와 저작권성 고지
+   ========================================================= -->
+    <footer class="footer">
+      <div class="footer__layout">
+        <section class="footer__top">
+          <figure class="footer__mark">
+            <img
+              alt="청년환생교육원 푸터 로고"
+              src="img\환생원 자료 모음\로고.png"
+            />
+          </figure>
+
+          <section class="footer__brand-text">
+            <strong>청년환생교육원</strong>
+            <span>REBIRTH EDUCATION INSTITUTE</span>
+          </section>
+        </section>
+
+        <p class="footer__note">
+          본 페이지는 창작 세계관 홍보를 위해 제작된 가상 페이지입니다. 등장하는
+          교육명·학사 일정·공지·심사 절차·인물·번호 등 모든 정보는 허구이며 실제
+          교육기관과 무관합니다. 본 사이트는 PRETENDARD를 폰트로 사용하고
+          있으며, 각 폰트의 저작권은 해당 제작사 및 기관에 있습니다.
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>
