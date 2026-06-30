@@ -247,7 +247,7 @@ body.is-flower-mode .site-nav a::after {
 }
 
 .closing-note {
-  margin-top: 70px;
+  margin-top: 60px;
   padding-top: 0;
   border-top: 0;
   color: rgba(0, 0, 0, 0.76);
@@ -320,7 +320,7 @@ main {
 .system-card {
   width: var(--card-width);
   margin: 0 auto;
-  padding: 170px 96px 120px;
+  padding: 60px 96px 0px;
   background: var(--color-white);
   border: 0;
   border-radius: 26px;

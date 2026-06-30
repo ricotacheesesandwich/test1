@@ -51,10 +51,10 @@ function initPageState() {
 /* ---------------------------------------------------------
    Profile Template Copy
    - 프로필 양식 아이콘 클릭 시 양식 복사
+   - 복사 후 아이콘이 체크 표시로 1초간 변경
    --------------------------------------------------------- */
 function initProfileTemplateCopy() {
   const copyButton = document.querySelector(".profile-template__copy");
-  const toast = document.querySelector(".profile-template__toast");
 
   if (!copyButton) return;
 
@@ -103,15 +103,15 @@ only xx,xy
       document.body.removeChild(textarea);
     }
 
-    if (!toast) return;
+    copyButton.classList.add("is-copied");
+    copyButton.setAttribute("aria-label", "복사 완료");
 
-    toast.classList.add("is-visible");
+    window.clearTimeout(copyButton.copyIconTimer);
 
-    window.clearTimeout(toast.hideTimer);
-
-    toast.hideTimer = window.setTimeout(() => {
-      toast.classList.remove("is-visible");
-    }, 1400);
+    copyButton.copyIconTimer = window.setTimeout(() => {
+      copyButton.classList.remove("is-copied");
+      copyButton.setAttribute("aria-label", "프로필 양식 복사");
+    }, 1000);
   }
 
   copyButton.addEventListener("click", copyProfileTemplate);
