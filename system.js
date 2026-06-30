@@ -7,11 +7,10 @@
 
 document.addEventListener("DOMContentLoaded", () => {
   document.body.classList.add("js-ready");
-  document.body.classList.add("motion-ready");
 
+  initMobileMenu();
   initScrollRevealMotion();
   initFlowerMode();
-  initMobileMenu();
 });
 
 /* ---------------------------------------------------------
@@ -129,45 +128,58 @@ function initFlowerMode() {
 /* ---------------------------------------------------------
    03. Mobile Menu
    - 모바일에서 햄버거 버튼 클릭 시 왼쪽 메뉴 열기
+   - 이벤트 위임 방식이라 클릭이 훨씬 안정적으로 작동함
    --------------------------------------------------------- */
 function initMobileMenu() {
   const mobileMenu = document.querySelector("[data-mobile-menu]");
-  const openButton = document.querySelector("[data-mobile-menu-open]");
-  const closeButtons = document.querySelectorAll("[data-mobile-menu-close]");
-  const menuLinks = document.querySelectorAll(".mobile-menu__panel a");
 
-  if (!mobileMenu || !openButton) return;
+  if (!mobileMenu) return;
 
   function openMobileMenu() {
     mobileMenu.classList.add("is-open");
     mobileMenu.setAttribute("aria-hidden", "false");
-    openButton.setAttribute("aria-expanded", "true");
     document.body.classList.add("mobile-menu-open");
+
+    const openButton = document.querySelector("[data-mobile-menu-open]");
+    if (openButton) {
+      openButton.setAttribute("aria-expanded", "true");
+    }
   }
 
   function closeMobileMenu() {
     mobileMenu.classList.remove("is-open");
     mobileMenu.setAttribute("aria-hidden", "true");
-    openButton.setAttribute("aria-expanded", "false");
     document.body.classList.remove("mobile-menu-open");
+
+    const openButton = document.querySelector("[data-mobile-menu-open]");
+    if (openButton) {
+      openButton.setAttribute("aria-expanded", "false");
+    }
   }
 
-  openButton.addEventListener("click", () => {
-    const isOpen = mobileMenu.classList.contains("is-open");
-
-    if (isOpen) {
+  function toggleMobileMenu() {
+    if (mobileMenu.classList.contains("is-open")) {
       closeMobileMenu();
-    } else {
-      openMobileMenu();
+      return;
     }
-  });
 
-  closeButtons.forEach((button) => {
-    button.addEventListener("click", closeMobileMenu);
-  });
+    openMobileMenu();
+  }
 
-  menuLinks.forEach((link) => {
-    link.addEventListener("click", closeMobileMenu);
+  document.addEventListener("click", (event) => {
+    const openButton = event.target.closest("[data-mobile-menu-open]");
+    const closeButton = event.target.closest("[data-mobile-menu-close]");
+    const menuLink = event.target.closest(".mobile-menu__panel a");
+
+    if (openButton) {
+      event.preventDefault();
+      toggleMobileMenu();
+      return;
+    }
+
+    if (closeButton || menuLink) {
+      closeMobileMenu();
+    }
   });
 
   window.addEventListener("keydown", (event) => {
@@ -177,7 +189,7 @@ function initMobileMenu() {
   });
 
   window.addEventListener("resize", () => {
-    if (window.innerWidth > 767) {
+    if (window.innerWidth > 1023) {
       closeMobileMenu();
     }
   });
