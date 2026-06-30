@@ -952,33 +952,504 @@ body.is-flower-mode .chat-bubble--user {
 
 /* ---------------------------------------------------------
    09. Reveal Motion
+   - 기본은 보이게
+   - JS가 정상 실행될 때만 대기 상태를 붙여 애니메이션 처리
    --------------------------------------------------------- */
+
 .reveal {
-  opacity: 0;
-  transform: translateY(38px);
-  filter: blur(10px);
-  transition:
-    opacity 0.95s ease,
-    transform 0.95s ease,
-    filter 0.95s ease;
+  opacity: 1;
+  transform: none;
+  filter: none;
 }
 
-.reveal.is-visible {
+/* JS가 붙이는 대기 상태 */
+.reveal.is-reveal-pending {
+  opacity: 0;
+  transform: translate3d(0, 48px, 0);
+  filter: blur(14px);
+  transition:
+    opacity 0.95s ease var(--reveal-delay, 0ms),
+    transform 1s cubic-bezier(0.16, 1, 0.3, 1) var(--reveal-delay, 0ms),
+    filter 0.95s ease var(--reveal-delay, 0ms);
+  will-change: opacity, transform, filter;
+}
+
+/* 화면에 들어오면 표시 */
+.reveal.is-reveal-pending.is-visible {
   opacity: 1;
-  transform: translateY(0);
+  transform: translate3d(0, 0, 0);
   filter: blur(0);
 }
 
 /* ---------------------------------------------------------
-   10. Responsive
+   17. Responsive / Header / Mobile Menu
+   - 모바일: 320px ~ 767px
+   - 태블릿: 768px ~ 1023px
+   - 노트북: 1024px ~ 1439px
+   - 데스크탑: 1440px 이상
    --------------------------------------------------------- */
-@media (max-width: 760px) {
+
+/* =========================================================
+   Header Fix
+   - 현재 HTML의 .header 계열 class 기준
+   ========================================================= */
+
+.header {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 100;
+  height: var(--header-height);
+  display: flex;
+  align-items: center;
+  background: var(--color-white);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+  transition:
+    background 0.9s ease,
+    border-color 0.9s ease,
+    box-shadow 0.9s ease;
+}
+
+.header__inner {
+  width: var(--container-width);
+  height: 100%;
+  margin-inline: auto;
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: 24px;
+  align-items: center;
+}
+
+.header__logo {
+  grid-column: 2 / span 4;
+  justify-self: start;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--color-navy-dark);
+  font-size: 27px;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.05em;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 0.9s ease;
+}
+
+.header__logo-img {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  flex: 0 0 40px;
+}
+
+.header__nav {
+  grid-column: 8 / span 5;
+  justify-self: end;
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.header__nav a {
+  position: relative;
+  width: 94px;
+  height: var(--header-height);
+  display: grid;
+  place-items: center;
+  color: #000000;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1;
+  text-decoration: none;
+  transition:
+    color 0.22s ease,
+    font-weight 0.22s ease;
+}
+
+.header__nav a::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 15px;
+  width: 88px;
+  height: 2px;
+  border-radius: 999px;
+  background: var(--color-navy-dark);
+  transform: translateX(-50%) scaleX(0);
+  transform-origin: center center;
+  transition: transform 0.24s ease;
+}
+
+.header__nav a.is-active {
+  color: var(--color-navy-dark);
+  font-weight: 800;
+}
+
+.header__nav a.is-active::after {
+  transform: translateX(-50%) scaleX(1);
+}
+
+.header__nav:hover a.is-active:not(:hover) {
+  color: #000000;
+  font-weight: 500;
+}
+
+.header__nav:hover a.is-active:not(:hover)::after {
+  transform: translateX(-50%) scaleX(0);
+}
+
+.header__nav a:hover,
+.header__nav a:focus-visible {
+  color: var(--color-navy-dark);
+  font-weight: 800;
+}
+
+.header__nav a:hover::after,
+.header__nav a:focus-visible::after {
+  transform: translateX(-50%) scaleX(1);
+}
+
+body.is-flower-mode .header {
+  background: rgba(255, 245, 248, 0.96);
+  border-bottom-color: rgba(214, 176, 184, 0.28);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5) inset;
+}
+
+body.is-flower-mode .header__logo,
+body.is-flower-mode .header__nav a {
+  color: rgba(136, 103, 112, 0.84);
+}
+
+body.is-flower-mode .header__nav a.is-active,
+body.is-flower-mode .header__nav a:hover,
+body.is-flower-mode .header__nav a:focus-visible {
+  color: var(--pink-text);
+}
+
+body.is-flower-mode .header__nav a::after {
+  background: #db879a;
+}
+
+.mobile-menu-button {
+  display: none;
+}
+
+.mobile-menu {
+  display: none;
+}
+
+body.mobile-menu-open {
+  overflow: hidden;
+}
+
+/* =========================================================
+   데스크탑: 1440px 이상
+   ========================================================= */
+
+@media (min-width: 1440px) {
   :root {
-    --header-height: 70px;
-    --container-width: min(100% - 32px, 1200px);
+    --header-height: 82px;
+    --container-width: min(calc(100% - 48px), 1872px);
+    --card-width: min(calc(100% - 48px), 1080px);
   }
 
-  .site-header__inner {
+  .system-card {
+    padding: 170px 96px 120px;
+  }
+
+  .notice-time-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .roll-call-grid,
+  .settlement-example-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .flower-card-grid {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+/* =========================================================
+   노트북: 1024px ~ 1439px
+   ========================================================= */
+
+@media (min-width: 1024px) and (max-width: 1439px) {
+  :root {
+    --header-height: 78px;
+    --container-width: min(calc(100% - 44px), 1180px);
+    --card-width: min(calc(100% - 44px), 1040px);
+  }
+
+  .header__inner {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: 20px;
+  }
+
+  .header__logo {
+    grid-column: 1 / span 5;
+    font-size: 23px;
+  }
+
+  .header__nav {
+    grid-column: 7 / span 6;
+    gap: 18px;
+  }
+
+  .header__nav a {
+    width: 82px;
+    font-size: 17px;
+  }
+
+  .page-hero {
+    min-height: 820px;
+  }
+
+  .page-hero h1 {
+    font-size: clamp(76px, 9vw, 124px);
+  }
+
+  .page-hero p:last-child {
+    font-size: 24px;
+  }
+
+  .system-card {
+    padding: 150px 80px 110px;
+  }
+
+  .system-card__head {
+    padding-bottom: 104px;
+  }
+
+  .system-card__head h2,
+  .flower-intro h2 {
+    font-size: 58px;
+  }
+
+  .system-section {
+    padding: 78px 0 86px;
+  }
+
+  .system-section h3 {
+    font-size: 38px;
+  }
+
+  .notice-time-grid {
+    gap: 20px;
+  }
+
+  .notice-time-card {
+    padding: 32px 22px;
+  }
+
+  .flower-card-grid {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 18px;
+  }
+
+  .flower-card::after {
+    font-size: 58px;
+  }
+}
+
+/* =========================================================
+   태블릿: 768px ~ 1023px
+   ========================================================= */
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  :root {
+    --header-height: 74px;
+    --container-width: min(calc(100% - 40px), 920px);
+    --card-width: min(calc(100% - 40px), 920px);
+  }
+
+  .header__inner {
+    width: var(--container-width);
+    grid-template-columns: repeat(8, minmax(0, 1fr));
+    column-gap: 18px;
+  }
+
+  .header__logo {
+    grid-column: 1 / span 4;
+    font-size: 21px;
+    letter-spacing: 0.03em;
+  }
+
+  .header__logo-img {
+    width: 34px;
+    height: 34px;
+    flex-basis: 34px;
+  }
+
+  .header__nav {
+    grid-column: 5 / span 4;
+    gap: 10px;
+  }
+
+  .header__nav a {
+    width: 70px;
+    height: var(--header-height);
+    font-size: 16px;
+  }
+
+  .header__nav a::after {
+    width: 62px;
+    bottom: 13px;
+  }
+
+  main {
+    padding-bottom: 100px;
+  }
+
+  .page-hero {
+    min-height: 740px;
+    padding: 120px 24px;
+  }
+
+  .page-hero__label {
+    font-size: 16px;
+    letter-spacing: 0.24em;
+  }
+
+  .page-hero h1 {
+    white-space: normal;
+    font-size: clamp(66px, 10vw, 96px);
+  }
+
+  .page-hero p:last-child {
+    font-size: 20px;
+    line-height: 2;
+  }
+
+  .system-card {
+    padding: 120px 56px 96px;
+    border-radius: 24px;
+  }
+
+  .system-card__head {
+    padding-bottom: 90px;
+  }
+
+  .system-card__head h2,
+  .flower-intro h2 {
+    font-size: 52px;
+  }
+
+  .system-card__head p,
+  .flower-intro p {
+    font-size: 17px;
+    line-height: 2.05;
+  }
+
+  .notice-time-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  .notice-time-card {
+    min-height: 170px;
+    padding: 28px 18px;
+  }
+
+  .notice-time-card span,
+  .roll-call-card span {
+    font-size: 15px;
+  }
+
+  .notice-time-card strong,
+  .roll-call-card strong {
+    font-size: 28px;
+  }
+
+  .notice-time-card p,
+  .roll-call-card p {
+    font-size: 15px;
+  }
+
+  .system-section {
+    padding: 74px 0 82px;
+  }
+
+  .system-section::before {
+    right: 0;
+    top: 72px;
+    font-size: 64px;
+  }
+
+  .system-section h3 {
+    max-width: calc(100% - 84px);
+    font-size: 36px;
+  }
+
+  .system-section p,
+  .system-section li {
+    font-size: 17px;
+    line-height: 2.05;
+  }
+
+  .roll-call-grid,
+  .settlement-example-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+  }
+
+  .roll-call-card,
+  .settlement-example-card,
+  .dialogue-panel {
+    padding: 30px;
+  }
+
+  .flower-intro {
+    padding: 100px 0 70px;
+  }
+
+  .flower-card-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+  }
+
+  .flower-card {
+    aspect-ratio: 1 / 0.94;
+  }
+
+  .flower-note-box {
+    padding: 26px 30px;
+  }
+
+  .example-row {
+    grid-template-columns: 130px minmax(0, 1fr);
+  }
+
+  .example-row b,
+  .example-row span {
+    padding: 20px 22px;
+    font-size: 16px;
+  }
+
+  .condition-list li,
+  .rule-list li {
+    padding: 24px 0 24px 30px;
+  }
+
+  .chat-bubble {
+    max-width: 88%;
+    font-size: 17px;
+  }
+}
+
+/* =========================================================
+   모바일 / 스마트폰: 320px ~ 767px
+   ========================================================= */
+
+@media (min-width: 320px) and (max-width: 767px) {
+  :root {
+    --header-height: 70px;
+    --container-width: min(calc(100% - 32px), 520px);
+    --card-width: min(calc(100% - 24px), 520px);
+  }
+
+  .header__inner {
     width: var(--container-width);
     height: var(--header-height);
     display: flex;
@@ -986,31 +1457,179 @@ body.is-flower-mode .chat-bubble--user {
     justify-content: space-between;
   }
 
-  .site-header__brand {
-    font-size: 19px;
-    letter-spacing: 0.03em;
+  .header__logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.04em;
   }
 
-  .site-header__logo-img {
+  .header__logo-img {
     width: 26px;
     height: 26px;
-    flex-basis: 26px;
+    flex: 0 0 26px;
   }
 
-  .site-nav {
+  .header__nav {
+    display: none;
+  }
+
+  .mobile-menu-button {
+    width: 42px;
+    height: 42px;
+    flex: 0 0 42px;
+    display: inline-grid;
+    place-items: center;
+    gap: 5px;
+    padding: 9px;
+    border: 0;
+    border-radius: 10px;
+    background: transparent;
+    cursor: pointer;
+  }
+
+  .mobile-menu-button span {
+    width: 24px;
+    height: 2px;
+    display: block;
+    border-radius: 999px;
+    background: var(--color-navy-dark);
+    transition:
+      transform 0.24s ease,
+      opacity 0.24s ease;
+  }
+
+  body.is-flower-mode .mobile-menu-button span {
+    background: var(--pink-text);
+  }
+
+  body.mobile-menu-open .mobile-menu-button span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+
+  body.mobile-menu-open .mobile-menu-button span:nth-child(2) {
+    opacity: 0;
+  }
+
+  body.mobile-menu-open .mobile-menu-button span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+
+  .mobile-menu {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: block;
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  .mobile-menu.is-open {
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  .mobile-menu__dim {
+    position: absolute;
+    inset: 0;
+    border: 0;
+    background: rgba(5, 9, 16, 0.48);
+    opacity: 0;
+    cursor: pointer;
+    transition: opacity 0.28s ease;
+  }
+
+  .mobile-menu.is-open .mobile-menu__dim {
+    opacity: 1;
+  }
+
+  .mobile-menu__panel {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: min(82vw, 320px);
+    height: 100%;
+    padding: 28px 24px;
     display: flex;
-    gap: 4px;
+    flex-direction: column;
+    background: var(--color-white);
+    box-shadow: 24px 0 50px rgba(0, 0, 0, 0.22);
+    transform: translateX(-100%);
+    transition: transform 0.34s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
-  .site-nav a {
-    width: 56px;
-    height: var(--header-height);
+  .mobile-menu.is-open .mobile-menu__panel {
+    transform: translateX(0);
+  }
+
+  .mobile-menu__head {
+    margin-bottom: 34px;
+    padding-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(42, 59, 87, 0.14);
+  }
+
+  .mobile-menu__head p {
+    margin: 0;
+    color: var(--color-navy-dark);
     font-size: 14px;
+    font-weight: 900;
+    letter-spacing: 0.16em;
   }
 
-  .site-nav a::after {
-    bottom: 12px;
-    width: 50px;
+  .mobile-menu__close {
+    width: 34px;
+    height: 34px;
+    display: grid;
+    place-items: center;
+    border: 0;
+    border-radius: 50%;
+    background: rgba(42, 59, 87, 0.08);
+    color: var(--color-navy-dark);
+    font-size: 28px;
+    font-weight: 300;
+    line-height: 1;
+    cursor: pointer;
+  }
+
+  .mobile-menu__panel a {
+    position: relative;
+    padding: 18px 4px;
+    color: #111111;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.045em;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(42, 59, 87, 0.1);
+    transition:
+      color 0.2s ease,
+      padding-left 0.2s ease;
+  }
+
+  .mobile-menu__panel a:hover,
+  .mobile-menu__panel a:focus-visible,
+  .mobile-menu__panel a.is-active {
+    padding-left: 10px;
+    color: var(--color-navy-dark);
+  }
+
+  .mobile-menu__panel a.is-active::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 4px;
+    height: 24px;
+    border-radius: 999px;
+    background: var(--color-navy-dark);
+    transform: translateY(-50%);
   }
 
   main {
@@ -1018,81 +1637,72 @@ body.is-flower-mode .chat-bubble--user {
   }
 
   .page-hero {
-    min-height: calc(82vh - var(--header-height));
+    min-height: 640px;
+    padding: 96px 18px 88px;
   }
 
   .page-hero__label {
-    font-size: 14px;
+    margin-bottom: 18px;
+    font-size: 13px;
+    letter-spacing: 0.18em;
   }
 
   .page-hero h1 {
-    font-size: clamp(48px, 13vw, 70px);
+    white-space: normal;
+    font-size: clamp(48px, 15vw, 70px);
+    line-height: 0.92;
+    letter-spacing: -0.1em;
   }
 
   .page-hero p:last-child {
+    margin-top: 34px;
     font-size: 16px;
-    line-height: 2;
+    line-height: 1.95;
+  }
+
+  .page-hero p:last-child br {
+    display: none;
   }
 
   .system-card {
-    width: min(calc(100% - 24px), 1080px);
-    padding: 96px 24px 72px;
+    width: var(--card-width);
+    padding: 82px 22px 72px;
     border-radius: 22px;
   }
 
   .system-card__head {
-    padding-bottom: 76px;
+    padding-bottom: 70px;
   }
 
   .section-label {
+    margin-bottom: 18px;
+    font-size: 13px;
+    letter-spacing: 0.08em;
+  }
+
+  .system-card__head .section-label {
     font-size: 14px;
   }
 
-  .system-card__head h2 {
-    font-size: clamp(42px, 12vw, 56px);
-  }
-
+  .system-card__head h2,
   .flower-intro h2 {
-    font-size: clamp(36px, 11vw, 48px);
+    font-size: clamp(38px, 12vw, 52px);
+    line-height: 1.12;
   }
 
   .system-card__head p,
-  .flower-intro p,
-  .system-section p,
-  .system-section li {
-    font-size: 16px;
-    line-height: 2;
-  }
-
-  .system-section {
-    padding: 64px 0 72px;
-  }
-
-  .system-section h3 {
-    max-width: calc(100% - 70px);
-    font-size: 30px;
-  }
-
-  .system-section::before {
-    right: 0;
-    top: 62px;
-    font-size: 58px;
+  .flower-intro p {
+    margin-top: 28px;
+    font-size: 15px;
+    line-height: 1.95;
   }
 
   .notice-time-grid,
   .roll-call-grid,
   .settlement-example-grid {
     grid-template-columns: 1fr;
-    margin-top: 48px;
-  }
-
-  .flower-card-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 10px;
-  }
-
-  .flower-card:last-child {
-    grid-column: span 3;
+    gap: 16px;
+    margin-top: 34px;
   }
 
   .notice-time-card,
@@ -1100,53 +1710,320 @@ body.is-flower-mode .chat-bubble--user {
   .settlement-example-card,
   .dialogue-panel,
   .flower-note-box {
-    padding: 26px;
+    padding: 24px 22px;
+    border-radius: 18px;
+  }
+
+  .notice-time-card {
+    min-height: auto;
+  }
+
+  .notice-time-card span,
+  .roll-call-card span {
+    font-size: 14px;
+  }
+
+  .notice-time-card strong,
+  .roll-call-card strong,
+  .settlement-example-card strong {
+    margin-top: 10px;
+    font-size: 26px;
+  }
+
+  .notice-time-card p,
+  .roll-call-card p,
+  .settlement-example-card p,
+  .flower-note-box p {
+    font-size: 15px;
+    line-height: 1.85;
+  }
+
+  .system-section {
+    padding: 64px 0 72px;
+  }
+
+  .system-section::before {
+    right: 0;
+    top: 64px;
+    font-size: 52px;
+  }
+
+  .system-section h3 {
+    max-width: calc(100% - 62px);
+    font-size: clamp(30px, 9vw, 38px);
+    line-height: 1.18;
+  }
+
+  .system-section p,
+  .system-section li {
+    font-size: 15px;
+    line-height: 1.95;
+  }
+
+  .system-section p {
+    margin-top: 26px;
+  }
+
+  .section-lead {
+    max-width: 100%;
+  }
+
+  .rule-list,
+  .condition-list {
+    margin-top: 34px;
+  }
+
+  .rule-list li,
+  .condition-list li {
+    padding: 22px 0 22px 28px;
+  }
+
+  .rule-list li::before,
+  .condition-list li::before {
+    top: 34px;
+    width: 7px;
+    height: 7px;
+  }
+
+  .subheading {
+    margin-top: 38px;
+    font-size: 20px;
+  }
+
+  .example-table {
+    margin-top: 34px;
+    border-radius: 18px;
   }
 
   .example-row {
-    grid-template-columns: 92px minmax(0, 1fr);
+    grid-template-columns: 1fr;
   }
 
   .example-row b,
-  .example-row span,
-  .chat-bubble {
-    font-size: 16px;
+  .example-row span {
+    padding: 16px 18px;
+    font-size: 15px;
+    line-height: 1.8;
+  }
+
+  .example-row b {
+    padding-bottom: 0;
+  }
+
+  .flower-intro {
+    padding: 84px 0 60px;
+  }
+
+  .flower-card-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+    margin-top: 34px;
+  }
+
+  .flower-card {
+    aspect-ratio: 1 / 1.05;
+    padding: 18px 10px 14px;
+    border-radius: 16px;
+  }
+
+  .flower-card::after {
+    right: 6px;
+    bottom: -8px;
+    font-size: 52px;
+  }
+
+  .flower-card strong {
+    font-size: 17px;
+  }
+
+  .flower-card span {
+    margin-top: 10px;
+    font-size: 14px;
+  }
+
+  .condition-list li {
+    display: block;
+  }
+
+  .settlement-example-label {
+    font-size: 14px;
+  }
+
+  .dialogue-panel {
+    margin-top: 34px;
+  }
+
+  .panel-title {
+    margin-bottom: 20px;
+    font-size: 22px;
+  }
+
+  .dialogue-chat {
+    gap: 14px;
+    margin-top: 24px;
   }
 
   .chat-bubble {
     max-width: 100%;
+    padding: 18px 20px;
+    font-size: 15px;
+    line-height: 1.85;
   }
 
   .closing-note {
+    margin-top: 52px;
     font-size: 18px;
+    line-height: 1.9;
   }
 
-  .page-footer {
-    margin-top: 72px;
+  .footer {
     padding: 28px 0 32px;
   }
 
-  .page-footer__inner {
-    width: min(calc(100% - 24px), 960px);
-    gap: 12px;
+  .footer__layout {
+    max-width: calc(100% - 24px);
   }
 
-  .page-footer__inner img {
-    width: 24px;
-    height: 24px;
-    flex-basis: 24px;
+  .footer__top {
+    gap: 10px;
   }
 
-  .page-footer strong {
+  .footer__mark {
+    width: 28px;
+    height: 28px;
+    flex-basis: 28px;
+  }
+
+  .footer__brand-text strong {
     font-size: 16px;
   }
 
-  .page-footer span {
+  .footer__brand-text span {
     font-size: 12px;
   }
 
-  .page-footer p {
+  .footer__note {
+    margin-top: 12px;
     font-size: 11px;
     line-height: 1.75;
+  }
+}
+
+/* =========================================================
+   아주 작은 모바일 보정: 320px ~ 374px
+   ========================================================= */
+
+@media (min-width: 320px) and (max-width: 374px) {
+  :root {
+    --container-width: min(calc(100% - 24px), 340px);
+    --card-width: min(calc(100% - 20px), 340px);
+  }
+
+  .header__logo span {
+    display: none;
+  }
+
+  .mobile-menu__panel {
+    width: min(86vw, 300px);
+    padding: 26px 20px;
+  }
+
+  .page-hero h1 {
+    font-size: 44px;
+  }
+
+  .system-card {
+    padding: 72px 18px 64px;
+  }
+
+  .system-card__head h2,
+  .flower-intro h2 {
+    font-size: 34px;
+  }
+
+  .system-section h3 {
+    font-size: 28px;
+  }
+
+  .flower-card-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---------------------------------------------------------
+   Flower Card Mobile Friendly Layout
+   - 모바일에서 꽃놀이패 카드를 세로 리스트형으로 정리
+   - 기존 색감과 분위기는 유지
+   --------------------------------------------------------- */
+
+@media (max-width: 767px) {
+  .flower-card-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    margin-top: 32px;
+  }
+
+  .flower-card {
+    aspect-ratio: auto;
+    min-height: 86px;
+    padding: 18px 20px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-areas: "name number";
+    align-items: center;
+    justify-content: stretch;
+    border-radius: 18px;
+    text-align: left;
+  }
+
+  .flower-card::after {
+    right: 16px;
+    bottom: -14px;
+    font-size: 58px;
+    opacity: 0.72;
+  }
+
+  .flower-card strong {
+    grid-area: name;
+    font-size: 18px;
+    line-height: 1.2;
+  }
+
+  .flower-card span {
+    grid-area: number;
+    min-width: 62px;
+    margin-top: 0;
+    padding: 7px 12px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.58);
+    color: rgba(122, 75, 75, 0.72);
+    font-size: 14px;
+    font-weight: 800;
+    line-height: 1;
+    text-align: center;
+  }
+}
+
+/* 더 작은 모바일 보정 */
+@media (max-width: 374px) {
+  .flower-card {
+    min-height: 78px;
+    padding: 16px 16px;
+  }
+
+  .flower-card::after {
+    right: 12px;
+    bottom: -12px;
+    font-size: 50px;
+  }
+
+  .flower-card strong {
+    font-size: 17px;
+  }
+
+  .flower-card span {
+    min-width: 56px;
+    padding: 6px 10px;
+    font-size: 13px;
   }
 }

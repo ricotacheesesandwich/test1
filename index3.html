@@ -5,26 +5,82 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>SYSTEM | 청년환생교육원</title>
     <link href="system.css" rel="stylesheet" />
+    <script src="system.js" defer></script>
   </head>
   <body>
-    <!-- HEADER / 상단 고정 내비게이션 -->
-    <header class="site-header">
-      <div class="site-header__inner">
-        <a class="site-header__brand" href="#top">
+    <!-- =========================================================
+   HEADER: 로고와 상단 내비게이션
+   ========================================================= -->
+    <header class="header">
+      <div class="header__inner">
+        <a class="header__logo" href="#top">
           <img
-            alt=""
-            class="site-header__logo-img"
-            src="img\환생원 자료 모음\로고.png"
+            src="img/환생원 자료 모음/로고.png"
+            alt="청년환생교육원 로고"
+            class="header__logo-img"
           />
-          <span> 청년환생교육원 </span>
+          <span>청년환생교육원</span>
         </a>
-        <nav class="site-nav">
-          <a href="index.html"> 소개 </a>
-          <a href="index1.html"> 커뮤니티 </a>
-          <a class="is-active" href="index3.html"> 시스템 </a>
+
+        <!-- 데스크탑 / 태블릿 기본 메뉴 -->
+        <nav class="header__nav" aria-label="주요 메뉴">
+          <a href="index.html">소개</a>
+          <a href="index1.html">커뮤니티</a>
+          <a class="is-active" href="index3.html">시스템</a>
         </nav>
+
+        <!-- 모바일 햄버거 버튼 -->
+        <button
+          class="mobile-menu-button"
+          type="button"
+          aria-label="모바일 메뉴 열기"
+          aria-controls="mobileMenu"
+          aria-expanded="false"
+          data-mobile-menu-open
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
       </div>
     </header>
+
+    <!-- =========================================================
+   MOBILE MENU: 모바일 전용 슬라이드 메뉴
+   ========================================================= -->
+    <aside
+      class="mobile-menu"
+      id="mobileMenu"
+      aria-hidden="true"
+      data-mobile-menu
+    >
+      <button
+        class="mobile-menu__dim"
+        type="button"
+        aria-label="모바일 메뉴 닫기"
+        data-mobile-menu-close
+      ></button>
+
+      <nav class="mobile-menu__panel" aria-label="모바일 카테고리">
+        <div class="mobile-menu__head">
+          <p>MENU</p>
+
+          <button
+            class="mobile-menu__close"
+            type="button"
+            aria-label="모바일 메뉴 닫기"
+            data-mobile-menu-close
+          >
+            ×
+          </button>
+        </div>
+
+        <a href="index.html">소개</a>
+        <a href="index1.html">커뮤니티</a>
+        <a class="is-active" href="index3.html">시스템</a>
+      </nav>
+    </aside>
+
     <!-- MAIN / 시스템 페이지 본문 -->
     <main id="top">
       <!-- HERO / SYSTEM 첫 화면 -->

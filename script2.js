@@ -8,8 +8,9 @@ document.addEventListener("DOMContentLoaded", () => {
   initPageState();
   initRevealMotion();
   initToggleBoxAnimation();
-  initCopyButton();
   initProfileTemplateCopy();
+  initCopyButton();
+  initMobileMenu();
 });
 // ==============================
 // 02. 스크롤 진행 바와 다크모드 전환
@@ -162,99 +163,147 @@ function initToggleBoxAnimation() {
     let animation = null;
     const motionTime = 260;
 
-    content.style.overflow = "hidden";
+    function isMobileScreen() {
+      return window.matchMedia("(max-width: 760px)").matches;
+    }
 
-    if (!box.open) {
-      content.style.height = "0px";
-      content.style.opacity = "0";
-      content.style.transform = "translateY(-4px)";
-    } else {
+    function stopAnimation() {
+      if (!animation) return;
+
+      animation.cancel();
+      animation = null;
+    }
+
+    function setOpenedState() {
+      box.open = true;
       content.style.height = "auto";
       content.style.opacity = "1";
       content.style.transform = "translateY(0)";
+      content.style.overflow = "visible";
+    }
+
+    function setClosedState() {
+      box.open = false;
+      content.style.height = "0px";
+      content.style.opacity = "0";
+      content.style.transform = "translateY(-4px)";
+      content.style.overflow = "hidden";
+    }
+
+    if (box.open) {
+      setOpenedState();
+    } else {
+      setClosedState();
     }
 
     summary.addEventListener("click", (event) => {
       event.preventDefault();
-
-      if (animation) {
-        animation.cancel();
-      }
+      stopAnimation();
 
       const isOpen = box.open;
 
+      /*
+        모바일에서는 높이 애니메이션을 빼고 바로 열고 닫습니다.
+        글자 줄바꿈 때문에 첫 열림에서 높이가 잘리는 문제를 막기 위함입니다.
+      */
+      if (isMobileScreen()) {
+        if (isOpen) {
+          setClosedState();
+        } else {
+          setOpenedState();
+        }
+
+        return;
+      }
+
+      /*
+        데스크탑에서는 기존처럼 부드럽게 열고 닫습니다.
+      */
       if (isOpen) {
         const startHeight = content.scrollHeight;
 
         content.style.height = `${startHeight}px`;
         content.style.opacity = "1";
         content.style.transform = "translateY(0)";
+        content.style.overflow = "hidden";
 
-        animation = content.animate(
-          [
+        requestAnimationFrame(() => {
+          animation = content.animate(
+            [
+              {
+                height: `${startHeight}px`,
+                opacity: 1,
+                transform: "translateY(0)",
+              },
+              {
+                height: "0px",
+                opacity: 0,
+                transform: "translateY(-4px)",
+              },
+            ],
             {
-              height: `${startHeight}px`,
-              opacity: 1,
-              transform: "translateY(0)",
+              duration: motionTime,
+              easing: "cubic-bezier(0.16, 1, 0.3, 1)",
             },
-            {
-              height: "0px",
-              opacity: 0,
-              transform: "translateY(-4px)",
-            },
-          ],
-          {
-            duration: motionTime,
-            easing: "cubic-bezier(0.16, 1, 0.3, 1)",
-            fill: "forwards",
-          },
-        );
+          );
 
-        animation.onfinish = () => {
-          box.open = false;
-          content.style.height = "0px";
-          content.style.opacity = "0";
-          content.style.transform = "translateY(-4px)";
-          animation = null;
-        };
+          animation.onfinish = () => {
+            setClosedState();
+            animation = null;
+          };
+        });
 
         return;
       }
 
       box.open = true;
 
+      content.style.height = "auto";
+      content.style.opacity = "1";
+      content.style.transform = "translateY(0)";
+      content.style.overflow = "hidden";
+
+      const endHeight = content.scrollHeight;
+
       content.style.height = "0px";
       content.style.opacity = "0";
       content.style.transform = "translateY(-4px)";
 
-      const endHeight = content.scrollHeight;
-
-      animation = content.animate(
-        [
+      requestAnimationFrame(() => {
+        animation = content.animate(
+          [
+            {
+              height: "0px",
+              opacity: 0,
+              transform: "translateY(-4px)",
+            },
+            {
+              height: `${endHeight}px`,
+              opacity: 1,
+              transform: "translateY(0)",
+            },
+          ],
           {
-            height: "0px",
-            opacity: 0,
-            transform: "translateY(-4px)",
+            duration: motionTime,
+            easing: "cubic-bezier(0.16, 1, 0.3, 1)",
           },
-          {
-            height: `${endHeight}px`,
-            opacity: 1,
-            transform: "translateY(0)",
-          },
-        ],
-        {
-          duration: motionTime,
-          easing: "cubic-bezier(0.16, 1, 0.3, 1)",
-          fill: "forwards",
-        },
-      );
+        );
 
-      animation.onfinish = () => {
-        content.style.height = "auto";
-        content.style.opacity = "1";
-        content.style.transform = "translateY(0)";
-        animation = null;
-      };
+        animation.onfinish = () => {
+          setOpenedState();
+          animation = null;
+        };
+      });
+    });
+
+    window.addEventListener("resize", () => {
+      stopAnimation();
+
+      if (box.open) {
+        setOpenedState();
+      } else {
+        setClosedState();
+      }
     });
   });
 }
@@ -329,5 +378,59 @@ function initCopyButton() {
         button.textContent = original;
       }, 1400);
     });
+  });
+}
+/* ---------------------------------------------------------
+   Mobile Menu
+   - 모바일에서 햄버거 버튼 클릭 시 왼쪽 메뉴 열기
+   --------------------------------------------------------- */
+function initMobileMenu() {
+  const mobileMenu = document.querySelector("[data-mobile-menu]");
+  const openButton = document.querySelector("[data-mobile-menu-open]");
+  const closeButtons = document.querySelectorAll("[data-mobile-menu-close]");
+  const menuLinks = document.querySelectorAll(".mobile-menu__panel a");
+
+  if (!mobileMenu || !openButton) return;
+
+  function openMobileMenu() {
+    mobileMenu.classList.add("is-open");
+    mobileMenu.setAttribute("aria-hidden", "false");
+    openButton.setAttribute("aria-expanded", "true");
+    document.body.classList.add("mobile-menu-open");
+  }
+
+  function closeMobileMenu() {
+    mobileMenu.classList.remove("is-open");
+    mobileMenu.setAttribute("aria-hidden", "true");
+    openButton.setAttribute("aria-expanded", "false");
+    document.body.classList.remove("mobile-menu-open");
+  }
+
+  openButton.addEventListener("click", () => {
+    if (mobileMenu.classList.contains("is-open")) {
+      closeMobileMenu();
+    } else {
+      openMobileMenu();
+    }
+  });
+
+  closeButtons.forEach((button) => {
+    button.addEventListener("click", closeMobileMenu);
+  });
+
+  menuLinks.forEach((link) => {
+    link.addEventListener("click", closeMobileMenu);
+  });
+
+  window.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      closeMobileMenu();
+    }
+  });
+
+  window.addEventListener("resize", () => {
+    if (window.innerWidth > 767) {
+      closeMobileMenu();
+    }
   });
 }

@@ -5,6 +5,8 @@
    - 스크롤 등장 모션
    - 헤더 상태
    - 일정 슬라이더
+   - 모바일 학사 일정
+   - 모바일 수위표
    - 교육 카드 팝업
    ========================================================= */
 
@@ -16,7 +18,10 @@ document.addEventListener("DOMContentLoaded", () => {
   initAlarmModal();
   initScrollRevealMotion();
   initHeaderMotion();
+  initMobileMenu();
   initScheduleSlider();
+  initMobileCalendarStable();
+  initMobileRatingCards();
   initEducationCardPopup();
 });
 
@@ -484,6 +489,300 @@ function initScheduleSlider() {
 }
 
 /* ---------------------------------------------------------
+   04-1. Mobile Calendar Stable
+   - 기존 복잡한 달력 구조는 유지
+   - 모바일 전용 미니 달력을 JS로 새로 생성
+   --------------------------------------------------------- */
+function initMobileCalendarStable() {
+  const calendars = Array.from(document.querySelectorAll(".calendar"));
+
+  if (!calendars.length) return;
+
+  calendars.forEach((calendar) => {
+    if (calendar.querySelector(".calendar-mobile")) return;
+
+    const originalDays = Array.from(
+      calendar.querySelectorAll(".calendar__day"),
+    );
+    const eventMap = new Map();
+
+    originalDays.forEach((day) => {
+      if (day.classList.contains("is-muted")) return;
+
+      const dateElement =
+        day.querySelector(".calendar__badge-number") ||
+        day.querySelector(".calendar__range-date") ||
+        day.querySelector("time:not(.calendar__time)");
+
+      if (!dateElement) return;
+
+      const dayNumber = dateElement.textContent.trim().replace(/\D/g, "");
+
+      if (!dayNumber) return;
+
+      const times = Array.from(day.querySelectorAll(".calendar__time"))
+        .map((item) => item.textContent.trim())
+        .filter(Boolean);
+
+      const titles = Array.from(day.querySelectorAll("strong"))
+        .map((item) => item.textContent.trim())
+        .filter(Boolean);
+
+      const notes = Array.from(day.querySelectorAll("small"))
+        .map((item) => item.textContent.trim())
+        .filter(Boolean);
+
+      const isBrown =
+        day.classList.contains("calendar__range--brown") ||
+        Boolean(day.querySelector(".calendar__date-badge.is-brown"));
+
+      const isRing = Boolean(
+        day.querySelector(".calendar__date-badge.is-ring"),
+      );
+
+      eventMap.set(Number(dayNumber), {
+        dayNumber: Number(dayNumber),
+        times,
+        titles,
+        notes,
+        isBrown,
+        isRing,
+      });
+    });
+
+    const mobileCalendar = document.createElement("section");
+
+    mobileCalendar.className = "calendar-mobile";
+    mobileCalendar.setAttribute("aria-label", "모바일 학사 일정");
+
+    const weekdayNames = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
+
+    const weekdays = document.createElement("div");
+
+    weekdays.className = "calendar-mobile__weekdays";
+    weekdays.innerHTML = weekdayNames
+      .map((day) => `<span>${day}</span>`)
+      .join("");
+
+    const grid = document.createElement("div");
+
+    grid.className = "calendar-mobile__grid";
+
+    const firstVisibleDay = 5;
+    const lastVisibleDay = 25;
+
+    for (
+      let dayNumber = firstVisibleDay;
+      dayNumber <= lastVisibleDay;
+      dayNumber += 1
+    ) {
+      const button = document.createElement("button");
+
+      button.className = "calendar-mobile__day";
+      button.type = "button";
+      button.textContent = String(dayNumber).padStart(2, "0");
+
+      const eventData = eventMap.get(dayNumber);
+
+      if (eventData) {
+        button.classList.add("has-event");
+
+        if (eventData.isRing) {
+          button.classList.add("is-ring");
+        } else if (eventData.isBrown) {
+          button.classList.add("is-brown");
+        } else {
+          button.classList.add("is-navy");
+        }
+
+        button.dataset.day = String(dayNumber);
+      } else {
+        button.disabled = true;
+      }
+
+      grid.appendChild(button);
+    }
+
+    const detail = document.createElement("section");
+
+    detail.className = "calendar-mobile__detail";
+    detail.setAttribute("aria-live", "polite");
+    detail.innerHTML = `
+      <p class="calendar-mobile__label">SCHEDULE DETAIL</p>
+      <div class="calendar-mobile__head">
+        <strong class="calendar-mobile__date"></strong>
+        <span class="calendar-mobile__time"></span>
+      </div>
+      <div class="calendar-mobile__body"></div>
+    `;
+
+    mobileCalendar.appendChild(weekdays);
+    mobileCalendar.appendChild(grid);
+    mobileCalendar.appendChild(detail);
+    calendar.appendChild(mobileCalendar);
+
+    const dateText = detail.querySelector(".calendar-mobile__date");
+    const timeText = detail.querySelector(".calendar-mobile__time");
+    const body = detail.querySelector(".calendar-mobile__body");
+    const eventButtons = Array.from(grid.querySelectorAll(".has-event"));
+
+    function renderDetail(dayNumber) {
+      const eventData = eventMap.get(Number(dayNumber));
+
+      if (!eventData) return;
+
+      eventButtons.forEach((button) => {
+        button.classList.toggle(
+          "is-active",
+          Number(button.dataset.day) === Number(dayNumber),
+        );
+      });
+
+      dateText.textContent = `2026.07.${String(eventData.dayNumber).padStart(
+        2,
+        "0",
+      )}`;
+
+      timeText.textContent = eventData.times.length
+        ? eventData.times.join(" · ")
+        : "시간 안내 없음";
+
+      const titleList = eventData.titles.length
+        ? `
+          <ul class="calendar-mobile__title-list">
+            ${eventData.titles.map((title) => `<li>${title}</li>`).join("")}
+          </ul>
+        `
+        : "";
+
+      const noteList = eventData.notes.length
+        ? `
+          <ul class="calendar-mobile__note-list">
+            ${eventData.notes.map((note) => `<li>${note}</li>`).join("")}
+          </ul>
+        `
+        : "";
+
+      body.innerHTML = titleList + noteList;
+    }
+
+    eventButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        renderDetail(button.dataset.day);
+      });
+    });
+
+    if (eventButtons.length) {
+      renderDetail(eventButtons[0].dataset.day);
+    }
+  });
+}
+
+/* ---------------------------------------------------------
+   04-2. Mobile Rating Cards
+   - 모바일에서 수위표를 등급별 카드로 표시
+   --------------------------------------------------------- */
+function initMobileRatingCards() {
+  const ratingSections = Array.from(document.querySelectorAll(".rating"));
+
+  if (!ratingSections.length) return;
+
+  ratingSections.forEach((ratingSection) => {
+    if (ratingSection.querySelector(".rating__mobile-list")) return;
+
+    const ratingTable = ratingSection.querySelector(".rating__table");
+
+    if (!ratingTable) return;
+
+    const headers = Array.from(ratingTable.querySelectorAll("thead th")).map(
+      (th) => th.textContent.trim(),
+    );
+
+    const rows = Array.from(ratingTable.querySelectorAll("tbody tr"));
+
+    if (!headers.length || !rows.length) return;
+
+    const mobileList = document.createElement("section");
+
+    mobileList.className = "rating__mobile-list";
+
+    const carryMap = new Map();
+
+    rows.forEach((row) => {
+      const cells = Array.from(row.children);
+      const gradeCell = cells[0];
+
+      if (!gradeCell) return;
+
+      const rowData = {};
+      let cellIndex = 1;
+
+      for (
+        let columnIndex = 1;
+        columnIndex < headers.length;
+        columnIndex += 1
+      ) {
+        const header = headers[columnIndex];
+
+        if (carryMap.has(columnIndex)) {
+          const carried = carryMap.get(columnIndex);
+
+          rowData[header] = carried.html;
+          carried.left -= 1;
+
+          if (carried.left <= 0) {
+            carryMap.delete(columnIndex);
+          }
+
+          continue;
+        }
+
+        const cell = cells[cellIndex];
+
+        if (!cell) continue;
+
+        rowData[header] = cell.innerHTML;
+
+        const rowspan = Number(cell.getAttribute("rowspan") || 1);
+
+        if (rowspan > 1) {
+          carryMap.set(columnIndex, {
+            html: cell.innerHTML,
+            left: rowspan - 1,
+          });
+        }
+
+        cellIndex += 1;
+      }
+
+      const card = document.createElement("article");
+
+      card.className = "rating__mobile-card";
+
+      const bodyHTML = Object.entries(rowData)
+        .map(
+          ([label, value]) => `
+            <div class="rating__mobile-row">
+              <span class="rating__mobile-row-label">${label}</span>
+              <div class="rating__mobile-row-value">${value}</div>
+            </div>
+          `,
+        )
+        .join("");
+
+      card.innerHTML = `
+        <div class="rating__mobile-grade">${gradeCell.innerHTML}</div>
+        <div class="rating__mobile-body">${bodyHTML}</div>
+      `;
+
+      mobileList.appendChild(card);
+    });
+
+    ratingSection.appendChild(mobileList);
+  });
+}
+
+/* ---------------------------------------------------------
    05. Education Card Popup
    --------------------------------------------------------- */
 function initEducationCardPopup() {
@@ -562,4 +861,271 @@ function initEducationCardPopup() {
       closeEducationPopup();
     }
   });
+}
+
+/* ---------------------------------------------------------
+   Mobile Menu
+   - 모바일에서 햄버거 버튼 클릭 시 왼쪽 메뉴 열기
+   --------------------------------------------------------- */
+function initMobileMenu() {
+  const mobileMenus = Array.from(
+    document.querySelectorAll("[data-mobile-menu]"),
+  );
+  const mobileMenu = mobileMenus[0];
+  const openButton = document.querySelector("[data-mobile-menu-open]");
+
+  if (mobileMenus.length > 1) {
+    mobileMenus.slice(1).forEach((menu) => {
+      menu.remove();
+    });
+  }
+
+  if (!mobileMenu || !openButton) return;
+
+  const closeButtons = mobileMenu.querySelectorAll("[data-mobile-menu-close]");
+  const menuLinks = mobileMenu.querySelectorAll(".mobile-menu__panel a");
+
+  function openMobileMenu() {
+    mobileMenu.classList.add("is-open");
+    mobileMenu.setAttribute("aria-hidden", "false");
+
+    openButton.setAttribute("aria-expanded", "true");
+    document.body.classList.add("mobile-menu-open");
+  }
+
+  function closeMobileMenu() {
+    mobileMenu.classList.remove("is-open");
+    mobileMenu.setAttribute("aria-hidden", "true");
+
+    openButton.setAttribute("aria-expanded", "false");
+    document.body.classList.remove("mobile-menu-open");
+  }
+
+  openButton.addEventListener("click", () => {
+    const isOpen = mobileMenu.classList.contains("is-open");
+
+    if (isOpen) {
+      closeMobileMenu();
+    } else {
+      openMobileMenu();
+    }
+  });
+
+  closeButtons.forEach((button) => {
+    button.addEventListener("click", closeMobileMenu);
+  });
+
+  menuLinks.forEach((link) => {
+    link.addEventListener("click", closeMobileMenu);
+  });
+
+  window.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      closeMobileMenu();
+    }
+  });
+
+  window.addEventListener("resize", () => {
+    if (window.innerWidth > 767) {
+      closeMobileMenu();
+    }
+  });
+}
+/* ---------------------------------------------------------
+   04-2. Mobile Rating Cards
+   - 모바일 수위표 안전 버전
+   - 상단: 노출 2 / 성행위 2 / 폭력 4 / 언어 4
+   - 하단: 클릭한 항목의 등급별 기준 표시
+   --------------------------------------------------------- */
+function initMobileRatingCards() {
+  const ratingSection = document.querySelector(".rating");
+
+  if (!ratingSection) return;
+
+  const oldMobileList = ratingSection.querySelector(".rating__mobile-list");
+
+  if (oldMobileList) {
+    oldMobileList.remove();
+  }
+
+  const ratingTable = ratingSection.querySelector(".rating__table");
+
+  if (!ratingTable) return;
+
+  const mobileList = document.createElement("section");
+  mobileList.className = "rating__mobile-list";
+  mobileList.setAttribute("aria-label", "모바일 수위표");
+
+  const categories = [
+    {
+      name: "노출",
+      grade: "2",
+    },
+    {
+      name: "성행위",
+      grade: "2",
+    },
+    {
+      name: "폭력",
+      grade: "4",
+    },
+    {
+      name: "언어",
+      grade: "4",
+    },
+  ];
+
+  function getGradeClass(grade) {
+    return `rating-mobile-grade--${grade}`;
+  }
+
+  function cleanText(text) {
+    return text.replace(/\s+/g, " ").trim();
+  }
+
+  function getCategoryDetail(categoryName) {
+    const rows = Array.from(ratingTable.querySelectorAll("tbody tr"));
+    const result = [];
+
+    rows.forEach((row) => {
+      const cells = Array.from(row.children);
+
+      if (!cells.length) return;
+
+      const gradeCell = cells[0];
+      const gradeText = cleanText(gradeCell.textContent);
+      const gradeMatch = gradeText.match(/\d+/);
+      const grade = gradeMatch ? gradeMatch[0] : "";
+
+      if (!grade) return;
+
+      /*
+        표 컬럼 순서 기준:
+        0 등급
+        1 노출
+        2 성행위
+        3 폭력
+        4 언어
+        5 기타
+      */
+      const columnMap = {
+        노출: 1,
+        성행위: 2,
+        폭력: 3,
+        언어: 4,
+        기타: 5,
+      };
+
+      const targetIndex = columnMap[categoryName];
+      const targetCell = cells[targetIndex];
+
+      if (!targetCell) return;
+
+      const content = targetCell.innerHTML.trim();
+
+      if (!content) return;
+
+      result.push({
+        grade,
+        content,
+      });
+    });
+
+    return result;
+  }
+
+  const overview = document.createElement("section");
+  overview.className = "rating-mobile-overview";
+
+  const overviewGrid = document.createElement("div");
+  overviewGrid.className = "rating-mobile-overview__grid";
+
+  const detail = document.createElement("section");
+  detail.className = "rating-mobile-detail";
+
+  const detailTitle = document.createElement("h4");
+  detailTitle.className = "rating-mobile-detail__title";
+
+  const detailBody = document.createElement("div");
+  detailBody.className = "rating-mobile-detail__body";
+
+  detail.appendChild(detailTitle);
+  detail.appendChild(detailBody);
+
+  function renderDetail(categoryName) {
+    const currentCategory = categories.find(
+      (item) => item.name === categoryName,
+    );
+    const currentGrade = currentCategory ? currentCategory.grade : "";
+    const detailRows = getCategoryDetail(categoryName);
+
+    detailTitle.textContent = `${categoryName} 기준`;
+
+    detailBody.innerHTML = "";
+
+    detailRows.forEach((row) => {
+      const detailRow = document.createElement("div");
+      detailRow.className = "rating-mobile-detail__row";
+
+      if (row.grade === currentGrade) {
+        detailRow.classList.add("is-current");
+      }
+
+      detailRow.innerHTML = `
+        <strong class="rating-mobile-detail__grade ${getGradeClass(row.grade)}">
+          ${row.grade}
+        </strong>
+        <div class="rating-mobile-detail__text">
+          ${row.content}
+        </div>
+      `;
+
+      detailBody.appendChild(detailRow);
+    });
+
+    const buttons = overviewGrid.querySelectorAll(
+      ".rating-mobile-overview__button",
+    );
+
+    buttons.forEach((button) => {
+      button.classList.toggle(
+        "is-active",
+        button.dataset.category === categoryName,
+      );
+    });
+  }
+
+  categories.forEach((category, index) => {
+    const button = document.createElement("button");
+
+    button.type = "button";
+    button.className = "rating-mobile-overview__button";
+    button.dataset.category = category.name;
+
+    button.innerHTML = `
+      <span class="rating-mobile-overview__label">${category.name}</span>
+      <strong class="rating-mobile-overview__value ${getGradeClass(
+        category.grade,
+      )}">
+        ${category.grade}
+      </strong>
+    `;
+
+    button.addEventListener("click", () => {
+      renderDetail(category.name);
+    });
+
+    overviewGrid.appendChild(button);
+
+    if (index === 0) {
+      window.setTimeout(() => {
+        renderDetail(category.name);
+      }, 0);
+    }
+  });
+
+  overview.appendChild(overviewGrid);
+  mobileList.appendChild(overview);
+  mobileList.appendChild(detail);
+  ratingSection.appendChild(mobileList);
 }

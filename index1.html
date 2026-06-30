@@ -25,7 +25,11 @@
     <header class="site-header">
       <div class="header-inner">
         <a class="brand-link" href="#top">
-          <img alt="" class="brand-logo" src="img\환생원 자료 모음\로고.png" />
+          <img
+            src="img/환생원 자료 모음/로고.png"
+            alt="청년환생교육원 로고"
+            class="brand-logo"
+          />
           <span>청년환생교육원</span>
         </a>
 
@@ -34,8 +38,55 @@
           <a class="is-active" href="index1.html">커뮤니티</a>
           <a href="index3.html">시스템</a>
         </nav>
+
+        <button
+          class="mobile-menu-button"
+          type="button"
+          aria-label="모바일 메뉴 열기"
+          aria-controls="mobileMenu"
+          aria-expanded="false"
+          data-mobile-menu-open
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
       </div>
     </header>
+
+    <!-- 모바일 전용 메뉴 -->
+    <aside
+      class="mobile-menu"
+      id="mobileMenu"
+      aria-hidden="true"
+      data-mobile-menu
+    >
+      <button
+        class="mobile-menu__dim"
+        type="button"
+        aria-label="모바일 메뉴 닫기"
+        data-mobile-menu-close
+      ></button>
+
+      <nav class="mobile-menu__panel" aria-label="모바일 카테고리">
+        <div class="mobile-menu__head">
+          <p>MENU</p>
+
+          <button
+            class="mobile-menu__close"
+            type="button"
+            aria-label="모바일 메뉴 닫기"
+            data-mobile-menu-close
+          >
+            ×
+          </button>
+        </div>
+
+        <a href="index.html">소개</a>
+        <a class="is-active" href="index1.html">커뮤니티</a>
+        <a href="index3.html">시스템</a>
+      </nav>
+    </aside>
 
     <!-- 메인 콘텐츠 시작 -->
     <main id="top">
@@ -503,9 +554,8 @@
           <p>
             본 커뮤니티는 캐릭터의 생전 행적과 사망 사유가 주요 소재로 활용될 수
             있으며, 이벤트 진행 과정에서 과거사 공개, 과거사 평가, 과거사 관련
-            투표 및 토론이 이루어질 수 있습니다.<br />
-            범죄 등 비윤리적인 내용의 비밀 설정은 허용되나, 범죄 및 악행의
-            미화는 지양해 주시기 바랍니다.<br />
+            투표 및 토론이 이루어질 수 있습니다. 범죄 등 비윤리적인 내용의 비밀
+            설정은 허용되나, 범죄 및 악행의 미화는 지양해 주시기 바랍니다.
             커뮤니티 운영진은 모든 비윤리적 범죄 혹은 행위를 절대 옹호하거나
             미화할 의도가 없음을 알립니다.
           </p>

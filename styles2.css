@@ -2,7 +2,7 @@
    청년환생교육원 COMMUNITY CSS
    - @import 사용 없음
    - !important 사용 없음
-   - index1.html / style2.css / script2.js 분리 구조
+   - index1.html / styles2.css / script2.js 분리 구조
    ========================================================= */
 
 /* ---------------------------------------------------------
@@ -134,7 +134,19 @@ button {
   width: 40px;
   height: 40px;
   object-fit: contain;
-  flex: 0 0 32px;
+  flex: 0 0 40px;
+}
+
+.mobile-menu-button {
+  display: none;
+}
+
+.mobile-menu {
+  display: none;
+}
+
+body.mobile-menu-open {
+  overflow: hidden;
 }
 
 .main-nav {
@@ -672,10 +684,8 @@ h1 {
 }
 
 /* ---------------------------------------------------------
-   Profile Template
-   - 프로필 양식 / 구글독스 링크 버튼
+   09. Profile Template
    --------------------------------------------------------- */
-
 .profile-area {
   width: 100%;
   max-width: none;
@@ -721,6 +731,7 @@ h1 {
 }
 
 .profile-template {
+  position: relative;
   width: 100%;
   max-width: none;
   padding: 68px 72px 40px;
@@ -744,6 +755,14 @@ h1 {
   font-weight: 800;
   line-height: 1.15;
   letter-spacing: -0.055em;
+}
+
+.profile-template__action {
+  position: static;
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .profile-template__icon {
@@ -789,22 +808,8 @@ h1 {
 }
 
 /* ---------------------------------------------------------
-   Profile Template Copy Toast
-   - 복사 완료 안내 문구 위치 조정
+   10. Profile Template Copy
    --------------------------------------------------------- */
-
-.profile-template {
-  position: relative;
-}
-
-.profile-template__action {
-  position: static;
-  flex: 0 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
 .profile-template__toast {
   position: absolute;
   top: 350px;
@@ -853,21 +858,7 @@ h1 {
   opacity: 1;
   visibility: visible;
   color: #ffffff;
-
   transform: translate(-50%, 0) scale(1);
-}
-
-/* ---------------------------------------------------------
-   Profile Template Copy Icon Frame Remove
-   - 프로필 양식 복사 아이콘 사각 프레임 제거
-   --------------------------------------------------------- */
-
-.profile-template__action {
-  position: static;
-  flex: 0 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 button.profile-template__copy {
@@ -906,7 +897,7 @@ button.profile-template__copy:active {
 }
 
 /* ---------------------------------------------------------
-   10. Trigger Warning / Toggle Box
+   11. Trigger Warning / Toggle Box
    --------------------------------------------------------- */
 .warning-start {
   scroll-margin-top: 120px;
@@ -952,11 +943,6 @@ button.profile-template__copy:active {
   letter-spacing: -0.045em;
   text-align: center;
 }
-
-/* ---------------------------------------------------------
-   Toggle Box
-   - 트리거 소재 / 설정 금지 소재 공통 열람 박스
-   --------------------------------------------------------- */
 
 .notice-section .toggle-box {
   width: 100%;
@@ -1021,7 +1007,7 @@ button.profile-template__copy:active {
 }
 
 /* ---------------------------------------------------------
-   16. Footer
+   12. Footer
    --------------------------------------------------------- */
 .footer {
   position: relative;
@@ -1098,42 +1084,11 @@ button.profile-template__copy:active {
   word-break: keep-all;
 }
 
-@media (max-width: 760px) {
-  .footer {
-    padding: 28px 0 32px;
-  }
-
-  .footer__layout {
-    max-width: calc(100% - 24px);
-  }
-
-  .footer__top {
-    gap: 10px;
-  }
-
-  .footer__mark {
-    width: 28px;
-    height: 28px;
-    flex-basis: 28px;
-  }
-
-  .footer__brand-text strong {
-    font-size: 16px;
-  }
-
-  .footer__brand-text span {
-    font-size: 12px;
-  }
-
-  .footer__note {
-    margin-top: 12px;
-    font-size: 11px;
-    line-height: 1.75;
-  }
-}
 /* ---------------------------------------------------------
-   12. Copy Helper / Reveal Motion
+   13. Copy Helper / Reveal Motion
+   - 스크롤 진입 시 블러 + 디졸브 등장
    --------------------------------------------------------- */
+
 .copy-helper {
   position: fixed;
   left: -9999px;
@@ -1148,6 +1103,7 @@ button.profile-template__copy:active {
     opacity 0.95s ease,
     transform 0.95s ease,
     filter 0.95s ease;
+  will-change: opacity, transform, filter;
 }
 
 .reveal.is-visible {
@@ -1157,7 +1113,7 @@ button.profile-template__copy:active {
 }
 
 /* ---------------------------------------------------------
-   13. Dark Mode
+   14. Dark Mode
    --------------------------------------------------------- */
 body.is-dark {
   background: #101826;
@@ -1291,12 +1247,12 @@ body.is-dark .warning-header ~ .notice-section .accent {
 }
 
 /* ---------------------------------------------------------
-   14. Responsive
+   15. Responsive / Mobile Menu
    --------------------------------------------------------- */
 @media (max-width: 760px) {
   :root {
     --header-height: 70px;
-    --container-width: min(100% - 32px, 1200px);
+    --container-width: min(calc(100% - 32px), 1200px);
   }
 
   .header-inner {
@@ -1308,30 +1264,182 @@ body.is-dark .warning-header ~ .notice-section .accent {
   }
 
   .brand-link {
-    font-size: 19px;
-    letter-spacing: 0.03em;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+    color: var(--color-navy-dark);
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    white-space: nowrap;
+    text-decoration: none;
   }
 
   .brand-logo {
-    width: 36px;
-    height: 36px;
-    flex-basis: 26px;
+    width: 26px;
+    height: 26px;
+    flex: 0 0 26px;
+    object-fit: contain;
   }
 
   .main-nav {
+    display: none;
+  }
+
+  .mobile-menu-button {
+    width: 42px;
+    height: 42px;
+    flex: 0 0 42px;
+    display: inline-grid;
+    place-items: center;
+    gap: 5px;
+    padding: 9px;
+    border: 0;
+    border-radius: 10px;
+    background: transparent;
+    cursor: pointer;
+  }
+
+  .mobile-menu-button span {
+    width: 24px;
+    height: 2px;
+    display: block;
+    border-radius: 999px;
+    background: var(--color-navy-dark);
+    transition:
+      transform 0.24s ease,
+      opacity 0.24s ease;
+  }
+
+  body.is-dark .mobile-menu-button span {
+    background: #eef2f5;
+  }
+
+  body.mobile-menu-open .mobile-menu-button span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+
+  body.mobile-menu-open .mobile-menu-button span:nth-child(2) {
+    opacity: 0;
+  }
+
+  body.mobile-menu-open .mobile-menu-button span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+
+  .mobile-menu {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: block;
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  .mobile-menu.is-open {
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  .mobile-menu__dim {
+    position: absolute;
+    inset: 0;
+    border: 0;
+    background: rgba(5, 9, 16, 0.48);
+    opacity: 0;
+    cursor: pointer;
+    transition: opacity 0.28s ease;
+  }
+
+  .mobile-menu.is-open .mobile-menu__dim {
+    opacity: 1;
+  }
+
+  .mobile-menu__panel {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: min(82vw, 320px);
+    height: 100%;
+    padding: 28px 24px;
     display: flex;
-    gap: 4px;
+    flex-direction: column;
+    background: var(--color-white);
+    box-shadow: 24px 0 50px rgba(0, 0, 0, 0.22);
+    transform: translateX(-100%);
+    transition: transform 0.34s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
-  .main-nav a {
-    width: 56px;
-    height: var(--header-height);
+  .mobile-menu.is-open .mobile-menu__panel {
+    transform: translateX(0);
+  }
+
+  .mobile-menu__head {
+    margin-bottom: 34px;
+    padding-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(42, 59, 87, 0.14);
+  }
+
+  .mobile-menu__head p {
+    margin: 0;
+    color: var(--color-navy-dark);
     font-size: 14px;
+    font-weight: 900;
+    letter-spacing: 0.16em;
   }
 
-  .main-nav a::after {
-    bottom: 12px;
-    width: 50px;
+  .mobile-menu__close {
+    width: 34px;
+    height: 34px;
+    display: grid;
+    place-items: center;
+    border: 0;
+    border-radius: 50%;
+    background: rgba(42, 59, 87, 0.08);
+    color: var(--color-navy-dark);
+    font-size: 28px;
+    font-weight: 300;
+    line-height: 1;
+    cursor: pointer;
+  }
+
+  .mobile-menu__panel a {
+    position: relative;
+    padding: 18px 4px;
+    color: #111111;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.045em;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(42, 59, 87, 0.1);
+    transition:
+      color 0.2s ease,
+      padding-left 0.2s ease;
+  }
+
+  .mobile-menu__panel a:hover,
+  .mobile-menu__panel a:focus-visible,
+  .mobile-menu__panel a.is-active {
+    padding-left: 10px;
+    color: var(--color-navy-dark);
+  }
+
+  .mobile-menu__panel a.is-active::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 4px;
+    height: 24px;
+    border-radius: 999px;
+    background: var(--color-navy-dark);
+    transform: translateY(-50%);
   }
 
   main {
@@ -1444,6 +1552,41 @@ body.is-dark .warning-header ~ .notice-section .accent {
     font-size: 15px;
   }
 
+  .profile-template {
+    padding: 44px 24px 28px;
+    border-radius: 22px;
+  }
+
+  .profile-template__head {
+    gap: 18px;
+    margin-bottom: 36px;
+  }
+
+  .profile-template__head h2 {
+    font-size: 34px;
+  }
+
+  .profile-template__row {
+    grid-template-columns: 1fr;
+    gap: 8px;
+    padding: 24px 0;
+  }
+
+  .profile-template__row strong {
+    font-size: 18px;
+  }
+
+  .profile-template__row span {
+    font-size: 16px;
+  }
+
+  .profile-template__toast {
+    top: 220px;
+    min-width: 190px;
+    padding: 14px 22px;
+    font-size: 15px;
+  }
+
   .warning-header h3 {
     font-size: clamp(44px, 14vw, 64px);
   }
@@ -1453,35 +1596,269 @@ body.is-dark .warning-header ~ .notice-section .accent {
     font-size: 15px;
   }
 
+  .notice-section .toggle-box summary {
+    height: auto;
+    min-height: 64px;
+    padding: 0 24px;
+    font-size: 16px;
+  }
+
+  .notice-section .toggle-content {
+    padding: 0 24px;
+    font-size: 15px;
+  }
+
+  .notice-section .toggle-box[open] .toggle-content {
+    padding: 0 24px 28px;
+  }
+
   .closing-message {
     font-size: 18px;
   }
 
-  .page-footer {
+  .page-footer,
+  .footer {
     margin-top: 72px;
     padding: 28px 0 32px;
   }
 
-  .footer-inner {
+  .footer-inner,
+  .footer__layout {
     width: min(calc(100% - 24px), 960px);
-    gap: 12px;
+    max-width: calc(100% - 24px);
   }
 
-  .footer-logo {
+  .footer-logo,
+  .footer__mark {
     width: 24px;
     height: 24px;
+    flex-basis: 24px;
   }
 
-  .footer-title {
+  .footer-title,
+  .footer__brand-text strong {
     font-size: 16px;
   }
 
-  .footer-subtitle {
+  .footer-subtitle,
+  .footer__brand-text span {
     font-size: 12px;
   }
 
-  .footer-text {
+  .footer-text,
+  .footer__note {
     font-size: 11px;
     line-height: 1.75;
+  }
+}
+
+/* ---------------------------------------------------------
+   Profile Template Mobile Layout
+   - 모바일에서 프로필 양식을 카드형 리스트로 정리
+   --------------------------------------------------------- */
+
+@media (max-width: 760px) {
+  .profile-template {
+    padding: 34px 18px 24px;
+    border-radius: 20px;
+    background: #f8f9fb;
+  }
+
+  .profile-template__head {
+    margin-bottom: 28px;
+    padding-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    border-bottom: 1px solid rgba(42, 59, 87, 0.16);
+  }
+
+  .profile-template__head h2 {
+    font-size: 30px;
+    line-height: 1.15;
+    letter-spacing: -0.06em;
+  }
+
+  .profile-template__action {
+    flex: 0 0 auto;
+  }
+
+  button.profile-template__copy {
+    width: 38px;
+    height: 38px;
+  }
+
+  .profile-template__table {
+    display: grid;
+    gap: 12px;
+    border-top: 0;
+  }
+
+  .profile-template__row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+    padding: 18px 18px 20px;
+    border: 1px solid rgba(42, 59, 87, 0.12);
+    border-radius: 16px;
+    background: #ffffff;
+    box-shadow: 0 8px 20px rgba(31, 44, 67, 0.05);
+  }
+
+  .profile-template__row strong {
+    width: fit-content;
+    display: inline-flex;
+    align-items: center;
+    min-height: 28px;
+    padding: 0 10px;
+    border-radius: 999px;
+    background: rgba(42, 59, 87, 0.08);
+    color: var(--color-navy);
+    font-size: 14px;
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -0.03em;
+  }
+
+  .profile-template__row span {
+    color: rgba(0, 0, 0, 0.68);
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.75;
+    letter-spacing: -0.045em;
+  }
+
+  .profile-template__toast {
+    top: 92px;
+    min-width: 180px;
+    padding: 13px 20px;
+    font-size: 14px;
+  }
+}
+
+/* 더 작은 모바일 화면 보정 */
+@media (max-width: 374px) {
+  .profile-template {
+    padding: 30px 14px 20px;
+  }
+
+  .profile-template__head h2 {
+    font-size: 27px;
+  }
+
+  .profile-template__row {
+    padding: 16px 15px 18px;
+  }
+
+  .profile-template__row span {
+    font-size: 15px;
+  }
+}
+
+/* ---------------------------------------------------------
+   Toggle Box Responsive Fix
+   - 트리거 소재 목록 / 설정 금지 소재 열람 박스 모바일 대응
+   --------------------------------------------------------- */
+
+@media (max-width: 760px) {
+  .notice-section .toggle-box {
+    width: 100%;
+    margin-top: 32px;
+    border-radius: 22px;
+  }
+
+  .notice-section .toggle-box summary {
+    min-height: auto;
+    height: auto;
+    padding: 22px 22px;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 18px;
+    line-height: 1.45;
+    word-break: keep-all;
+  }
+
+  .notice-section .toggle-box summary::before {
+    margin-top: 4px;
+    font-size: 15px;
+  }
+
+  .notice-section .toggle-content {
+    height: auto;
+    max-height: none;
+    overflow: visible;
+    padding: 0 22px;
+    font-size: 15px;
+    line-height: 2;
+    word-break: keep-all;
+    white-space: normal;
+  }
+
+  .notice-section .toggle-box[open] .toggle-content {
+    height: auto;
+    max-height: none;
+    overflow: visible;
+    margin-top: 0;
+    padding: 0 22px 26px;
+  }
+}
+
+@media (max-width: 480px) {
+  .notice-section .toggle-box {
+    border-radius: 18px;
+  }
+
+  .notice-section .toggle-box summary {
+    padding: 20px 18px;
+    font-size: 17px;
+    line-height: 1.45;
+  }
+
+  .notice-section .toggle-content {
+    padding: 0 18px;
+    font-size: 14px;
+    line-height: 1.95;
+  }
+
+  .notice-section .toggle-box[open] .toggle-content {
+    padding: 0 18px 24px;
+  }
+}
+
+@media (max-width: 374px) {
+  .notice-section .toggle-box summary {
+    padding: 18px 16px;
+    font-size: 16px;
+  }
+
+  .notice-section .toggle-content {
+    padding: 0 16px;
+    font-size: 13px;
+    line-height: 1.9;
+  }
+
+  .notice-section .toggle-box[open] .toggle-content {
+    padding: 0 16px 22px;
+  }
+}
+
+/* ---------------------------------------------------------
+   Toggle Box First Open Fix
+   - 첫 열림에서 내용 높이가 덜 계산되어 잘리는 현상 방지
+   --------------------------------------------------------- */
+
+.notice-section .toggle-box[open] .toggle-content {
+  overflow: visible;
+}
+
+@media (max-width: 760px) {
+  .notice-section .toggle-box {
+    overflow: visible;
+  }
+
+  .notice-section .toggle-content {
+    word-break: keep-all;
+    white-space: normal;
   }
 }
