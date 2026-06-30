@@ -3699,3 +3699,920 @@ body.motion-ready .education__card.reveal.is-visible:focus-within {
     font-size: 14px;
   }
 }
+
+/* =========================================================
+   모바일 문단 중앙 배치 최종 보정
+   - 모바일 화면에서 각 문단 파트가 화면 중앙에 오도록 조정
+   - 글자 크기 모바일 친화적으로 재정리
+   - 강제 줄바꿈으로 생기는 어색한 줄 분리 완화
+   ========================================================= */
+
+@media (max-width: 767px) {
+  :root {
+    --header-height: 70px;
+    --container-width: min(calc(100% - 32px), 520px);
+  }
+
+  html,
+  body {
+    width: 100%;
+    overflow-x: hidden;
+  }
+
+  body {
+    text-align: center;
+  }
+
+  .layout,
+  .header__inner {
+    width: var(--container-width);
+    margin-inline: auto;
+  }
+
+  main {
+    padding-top: var(--header-height);
+  }
+
+  /* ---------------------------------------------------------
+     모바일 공통 텍스트 정렬
+     --------------------------------------------------------- */
+
+  .hero__content,
+  .intro__block,
+  .institute__content,
+  .admission__criteria,
+  .admission__qualification,
+  .admission__final,
+  .section-head,
+  .education__head,
+  .promo__content,
+  .quick__content {
+    width: 100%;
+    max-width: 100%;
+    margin-inline: auto;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .intro br,
+  .institute__desc br,
+  .admission__qualification br,
+  .admission__note br,
+  .section-head br,
+  .promo__content br,
+  .quick__content br {
+    display: none;
+  }
+
+  /* ---------------------------------------------------------
+     HERO: 첫 화면 중앙 배치
+     --------------------------------------------------------- */
+
+  .hero,
+  .hero__layout {
+    min-height: calc(100svh - var(--header-height));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .hero__content {
+    min-height: calc(100svh - var(--header-height));
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .hero__kicker {
+    margin: 0 0 14px;
+    font-size: clamp(14px, 3.8vw, 17px);
+    line-height: 1.45;
+    letter-spacing: -0.03em;
+  }
+
+  .hero h1 {
+    width: 100%;
+    margin: 0;
+    font-size: clamp(38px, 11.5vw, 56px);
+    line-height: 1.08;
+    letter-spacing: -0.085em;
+    white-space: nowrap;
+  }
+
+  .hero__sub {
+    margin: clamp(24px, 6svh, 48px) 0 0;
+    font-size: clamp(14px, 3.7vw, 16px);
+    line-height: 1.6;
+    letter-spacing: -0.04em;
+  }
+
+  /* ---------------------------------------------------------
+     INTRO: 세계관 소개 문단 중앙 배치
+     --------------------------------------------------------- */
+
+  .intro__layout {
+    display: block;
+  }
+
+  .intro__block,
+  .intro__block--first,
+  .intro__block--second,
+  .intro__block--third {
+    min-height: calc(100svh - var(--header-height));
+    padding: clamp(56px, 9svh, 92px) 0;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+  }
+
+  .intro__label {
+    margin: 0 0 clamp(26px, 5svh, 42px);
+    font-size: clamp(28px, 8vw, 38px);
+    line-height: 1.35;
+    letter-spacing: -0.06em;
+  }
+
+  .intro h2,
+  .word-death,
+  .word-chance {
+    font-size: clamp(24px, 6.4vw, 32px);
+    line-height: 1.55;
+    letter-spacing: -0.055em;
+  }
+
+  .intro p {
+    max-width: 100%;
+    margin: clamp(26px, 5svh, 42px) auto 0;
+    font-size: clamp(16px, 4.3vw, 19px);
+    line-height: 1.95;
+    letter-spacing: -0.035em;
+  }
+
+  .word-afterlife {
+    font-size: clamp(18px, 4.8vw, 21px);
+  }
+
+  /* ---------------------------------------------------------
+     INSTITUTE: 환생원 명칭 소개 중앙 배치
+     --------------------------------------------------------- */
+
+  .institute,
+  .institute__layout {
+    min-height: calc(100svh - var(--header-height));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .institute__content {
+    padding: clamp(56px, 9svh, 92px) 0;
+  }
+
+  .institute h2,
+  .institute h3 {
+    font-size: clamp(44px, 12vw, 62px);
+    line-height: 1.08;
+    letter-spacing: -0.085em;
+    white-space: nowrap;
+  }
+
+  .institute__short {
+    margin-top: clamp(28px, 5svh, 42px);
+    font-size: clamp(22px, 6vw, 28px);
+    line-height: 1.4;
+  }
+
+  .institute__desc {
+    margin-top: clamp(42px, 7svh, 60px);
+    font-size: clamp(16px, 4.2vw, 18px);
+    line-height: 1.9;
+    letter-spacing: -0.035em;
+  }
+
+  /* ---------------------------------------------------------
+     ADMISSION: 입학 기준 / 시험 안내 / 마무리 문단 중앙 배치
+     --------------------------------------------------------- */
+
+  .admission__layout {
+    display: block;
+  }
+
+  .admission__criteria,
+  .admission__qualification,
+  .admission__final {
+    min-height: calc(100svh - var(--header-height));
+    padding: clamp(64px, 10svh, 104px) 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+  }
+
+  .admission__criteria h2 {
+    margin: 0 0 clamp(34px, 6svh, 50px);
+    font-size: clamp(28px, 7.2vw, 36px);
+    line-height: 1.45;
+    letter-spacing: -0.06em;
+  }
+
+  .admission__criteria ol {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    list-style-position: inside;
+    text-align: center;
+  }
+
+  .admission__criteria li {
+    margin: 0 0 18px;
+    font-size: clamp(17px, 4.6vw, 20px);
+    line-height: 1.8;
+    letter-spacing: -0.04em;
+  }
+
+  .admission__qualification p {
+    max-width: 100%;
+    margin: 0 auto;
+    font-size: clamp(20px, 5.4vw, 26px);
+    line-height: 1.8;
+    letter-spacing: -0.055em;
+  }
+
+  .admission__lead {
+    margin: 0 0 24px;
+    font-size: clamp(17px, 4.5vw, 20px);
+    line-height: 1.7;
+  }
+
+  .admission__final h2 {
+    font-size: clamp(42px, 12vw, 62px);
+    line-height: 1.12;
+    letter-spacing: -0.085em;
+  }
+
+  .admission__note {
+    margin-top: clamp(40px, 7svh, 58px);
+    font-size: clamp(16px, 4.2vw, 18px);
+    line-height: 1.9;
+    letter-spacing: -0.04em;
+  }
+
+  .admission__sender {
+    margin-top: clamp(52px, 8svh, 72px);
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  /* ---------------------------------------------------------
+     EDUCATION / PROMO / QUICK: 하단 섹션 모바일 정렬
+     --------------------------------------------------------- */
+
+  .education,
+  .promo,
+  .quick {
+    min-height: auto;
+    padding: clamp(72px, 10svh, 96px) 0;
+    display: block;
+  }
+
+  .section-head h2,
+  .promo h2,
+  .quick__content h2 {
+    font-size: clamp(32px, 8vw, 40px);
+    line-height: 1.2;
+    letter-spacing: -0.06em;
+  }
+
+  .section-head p,
+  .promo__content p:not(.promo__label),
+  .quick__content p:last-child {
+    max-width: 100%;
+    margin-top: 20px;
+    font-size: clamp(15px, 4vw, 17px);
+    line-height: 1.85;
+    letter-spacing: -0.035em;
+    text-align: center;
+  }
+
+  .education__head {
+    margin-bottom: 42px;
+  }
+
+  .education__cards {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .education__card {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    min-height: auto;
+    padding: 0 22px 30px;
+    text-align: center;
+  }
+
+  .education__image {
+    height: 200px;
+  }
+
+  .education__card h3 {
+    font-size: clamp(22px, 5.8vw, 26px);
+    line-height: 1.35;
+  }
+
+  .education__card p {
+    font-size: clamp(14px, 3.8vw, 16px);
+    line-height: 1.8;
+    text-align: center;
+  }
+
+  .promo__layout {
+    display: block;
+  }
+
+  .promo__label {
+    font-size: 13px;
+    letter-spacing: 0.12em;
+  }
+
+  .promo__video {
+    width: 100%;
+    max-width: 100%;
+    margin: 34px auto 0;
+  }
+
+  .promo__video iframe {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    height: auto;
+  }
+
+  .quick__layout,
+  .quick__panel {
+    display: block;
+  }
+
+  /* ---------------------------------------------------------
+     모바일 등장 모션 거리 완화
+     --------------------------------------------------------- */
+
+  body.js-ready .reveal:not(.is-visible),
+  body.motion-ready .reveal:not(.is-visible) {
+    transform: translate3d(0, 36px, 0);
+    filter: blur(10px);
+  }
+}
+
+/* =========================================================
+   374px 이하 초소형 모바일 추가 보정
+   ========================================================= */
+
+@media (max-width: 374px) {
+  :root {
+    --container-width: min(calc(100% - 24px), 340px);
+  }
+
+  .hero h1 {
+    font-size: 36px;
+  }
+
+  .hero__kicker,
+  .hero__sub {
+    font-size: 13px;
+  }
+
+  .intro__label {
+    font-size: 26px;
+  }
+
+  .intro h2,
+  .word-death,
+  .word-chance {
+    font-size: 22px;
+  }
+
+  .intro p {
+    font-size: 15px;
+  }
+
+  .institute h2,
+  .institute h3 {
+    font-size: 40px;
+  }
+
+  .admission__qualification p {
+    font-size: 19px;
+  }
+
+  .admission__final h2 {
+    font-size: 40px;
+  }
+}
+
+/* =========================================================
+   PROMO: 모바일 영상 위치 보정
+   - 모바일에서 영상이 제목과 설명문 사이에 오도록 순서 조정
+   - 순서: REBIRTH ACADEMY → 제목 → 영상 → 설명문
+   ========================================================= */
+
+@media (max-width: 767px) {
+  .promo__layout {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .promo__content {
+    display: contents;
+  }
+
+  .promo__label {
+    order: 1;
+    margin: 0 0 14px;
+  }
+
+  .promo h2 {
+    order: 2;
+    margin: 0;
+  }
+
+  .promo__video {
+    order: 3;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    margin: 34px auto 34px;
+  }
+
+  .promo__video iframe {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    height: auto;
+  }
+
+  .promo__content p:not(.promo__label) {
+    order: 4;
+    max-width: 100%;
+    margin: 0 auto;
+    text-align: center;
+  }
+}
+
+/* =========================================================
+   QUICK LINKS: 모바일 중앙정렬 최종 보정
+   - SNS / LINK 영역이 모바일에서 옆으로 치우치지 않도록 정중앙 배치
+   - X 이미지, LINK 아이콘 3개 모두 가운데 정렬
+   ========================================================= */
+
+@media (max-width: 767px) {
+  .quick {
+    width: 100%;
+    padding: 72px 0 86px;
+    overflow: hidden;
+  }
+
+  .quick .quick__layout.layout {
+    width: 100%;
+    max-width: none;
+    margin-inline: auto;
+    padding-inline: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 58px;
+  }
+
+  .quick .quick__panel,
+  .quick .quick__panel:first-child,
+  .quick .quick__panel:last-child {
+    width: 100%;
+    max-width: 360px;
+    margin-inline: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 28px;
+    text-align: center;
+    justify-self: center;
+  }
+
+  .quick .quick__content {
+    width: 100%;
+    min-width: 0;
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  .quick .quick__content .section-kicker,
+  .quick .quick__content h2,
+  .quick .quick__content p:last-child {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+  }
+
+  .quick .quick__content .section-kicker {
+    margin-bottom: 10px;
+    font-size: 15px;
+  }
+
+  .quick .quick__content h2 {
+    font-size: clamp(50px, 14vw, 66px);
+    line-height: 1;
+  }
+
+  .quick .quick__content p:last-child {
+    margin-top: 24px;
+    font-size: 17px;
+    font-weight: 700;
+  }
+
+  .quick .quick__asset {
+    width: 100%;
+    margin: 0 auto;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .quick .quick__asset a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .quick .quick__asset img {
+    display: block;
+    margin: 0 auto;
+    object-fit: contain;
+  }
+
+  .quick .quick__asset--single img {
+    width: clamp(150px, 45vw, 205px);
+    height: auto;
+  }
+
+  .quick .quick__asset--triple {
+    gap: clamp(18px, 6vw, 28px);
+  }
+
+  .quick .quick__asset--triple img {
+    width: clamp(72px, 22vw, 96px);
+    height: clamp(72px, 22vw, 96px);
+  }
+}
+
+/* =========================================================
+   MOBILE SAFE AREA: 모바일 전체 안쪽 마진
+   - 모바일 화면에서 모든 글과 내용이 화면 끝에 붙지 않도록 조정
+   - 붉은 선처럼 좌우 여백을 두고 내부에 콘텐츠 배치
+   ========================================================= */
+
+@media (max-width: 767px) {
+  :root {
+    --mobile-safe-space: clamp(32px, 10vw, 56px);
+    --mobile-content-width: calc(100% - (var(--mobile-safe-space) * 2));
+  }
+
+  html,
+  body {
+    width: 100%;
+    overflow-x: hidden;
+  }
+
+  main {
+    width: 100%;
+    overflow: hidden;
+  }
+
+  /* ---------------------------------------------------------
+     모바일 전체 레이아웃 폭 통일
+     --------------------------------------------------------- */
+
+  .layout,
+  .hero__layout,
+  .intro__layout,
+  .institute__layout,
+  .admission__layout,
+  .education .layout,
+  .promo__layout,
+  .schedule .layout,
+  .quick .quick__layout.layout,
+  .footer__layout {
+    width: min(var(--mobile-content-width), 420px);
+    max-width: 420px;
+    margin-inline: auto;
+    padding-inline: 0;
+    box-sizing: border-box;
+  }
+
+  /* ---------------------------------------------------------
+     모바일 문단 / 제목 / 설명문 폭 제한
+     --------------------------------------------------------- */
+
+  .hero__content,
+  .intro__block,
+  .institute__content,
+  .admission__criteria,
+  .admission__qualification,
+  .admission__final,
+  .section-head,
+  .education__head,
+  .promo__content,
+  .quick__content {
+    width: 100%;
+    max-width: 100%;
+    margin-inline: auto;
+    padding-inline: 0;
+    box-sizing: border-box;
+    text-align: center;
+  }
+
+  .hero__content *,
+  .intro__block *,
+  .institute__content *,
+  .admission__criteria *,
+  .admission__qualification *,
+  .admission__final *,
+  .section-head *,
+  .promo__content *,
+  .quick__content * {
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* ---------------------------------------------------------
+     모바일 글자 넘침 방지
+     --------------------------------------------------------- */
+
+  h1,
+  h2,
+  h3,
+  p,
+  li,
+  span,
+  strong {
+    max-width: 100%;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+  }
+
+  .hero h1,
+  .institute h2,
+  .institute h3 {
+    max-width: 100%;
+    white-space: normal;
+  }
+
+  .hero h1 {
+    font-size: clamp(36px, 9.6vw, 48px);
+    line-height: 1.12;
+  }
+
+  .institute h2,
+  .institute h3 {
+    font-size: clamp(40px, 10vw, 54px);
+  }
+
+  .admission__qualification p {
+    width: 100%;
+    max-width: 100%;
+    font-size: clamp(19px, 5vw, 24px);
+    line-height: 1.85;
+    letter-spacing: -0.055em;
+  }
+
+  .admission__criteria h2,
+  .admission__final h2 {
+    max-width: 100%;
+  }
+
+  /* ---------------------------------------------------------
+     이미지 / 영상 / 카드도 같은 마진 안에 배치
+     --------------------------------------------------------- */
+
+  figure,
+  img,
+  iframe,
+  video {
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .education__cards,
+  .promo__video,
+  .quick__asset,
+  .slider,
+  .slider__viewport,
+  .slider__fixed-head {
+    width: 100%;
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    box-sizing: border-box;
+  }
+
+  .education__card,
+  .quick__panel,
+  .quick .quick__panel,
+  .quick .quick__panel:first-child,
+  .quick .quick__panel:last-child {
+    width: 100%;
+    max-width: 100%;
+    margin-inline: auto;
+    box-sizing: border-box;
+  }
+
+  /* ---------------------------------------------------------
+     QUICK LINKS / SNS 영역 밀림 방지
+     --------------------------------------------------------- */
+
+  .quick .quick__layout.layout {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 58px;
+  }
+
+  .quick .quick__panel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 28px;
+    text-align: center;
+  }
+
+  .quick .quick__asset {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .quick .quick__asset--triple {
+    gap: clamp(14px, 5vw, 24px);
+  }
+
+  /* ---------------------------------------------------------
+     초소형 모바일은 여백을 조금 줄임
+     --------------------------------------------------------- */
+
+  @media (max-width: 374px) {
+    :root {
+      --mobile-safe-space: 24px;
+    }
+
+    .hero h1 {
+      font-size: 34px;
+    }
+
+    .admission__qualification p {
+      font-size: 18px;
+    }
+  }
+}
+
+/* =========================================================
+   QUICK LINKS: 모바일 X 로고 크기 조정
+   - SNS 영역의 X 로고가 너무 크게 보이지 않도록 축소
+   ========================================================= */
+
+@media (max-width: 300px) {
+  .quick .quick__asset--single img {
+    width: clamp(110px, 34vw, 150px);
+    height: auto;
+  }
+}
+
+/* =========================================================
+   EDUCATION: 모바일 카드 내부 중앙정렬
+   - 필수 이수 교육 카드의 이미지 / 제목 / 설명문을 중앙 배치
+   ========================================================= */
+
+@media (max-width: 767px) {
+  .education__cards {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-items: center;
+  }
+
+  .education__card {
+    width: 100%;
+    max-width: 100%;
+    margin-inline: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .education__image {
+    width: calc(100% + 44px);
+    margin: 0 -22px 36px;
+    display: grid;
+    place-items: center;
+  }
+
+  .education__image img {
+    margin: auto;
+  }
+
+  .education__card h3,
+  .education__card p {
+    width: 100%;
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+  }
+
+  .education__card h3 {
+    margin-bottom: 24px;
+  }
+
+  .education__card p {
+    line-height: 1.85;
+  }
+}
+
+/* =========================================================
+   SCHEDULE: 모바일 화살표 안쪽 배치
+   - 학사 일정 / 러닝 일정 / 수위표 화살표 버튼을 화면 끝에서 안쪽으로 이동
+   ========================================================= */
+
+@media (max-width: 767px) {
+  .slider__fixed-head {
+    width: min(calc(100% - 88px), 420px);
+    max-width: 420px;
+    margin-inline: auto;
+    grid-template-columns: 44px minmax(0, 1fr) 44px;
+    column-gap: 8px;
+  }
+
+  .slider__arrow {
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    font-size: 42px;
+  }
+}
+
+/* =========================================================
+   PROMO: 홍보영상 비율 고정
+   - 화면 크기가 바뀌어도 영상이 16:9 비율로 유지되도록 조정
+   - iframe width/height 속성 때문에 깨지는 문제 방지
+   ========================================================= */
+
+.promo__video {
+  width: clamp(420px, 38vw, 760px);
+  max-width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: 3px;
+  background: #000;
+}
+
+.promo__video iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* 태블릿 화면 */
+@media (max-width: 1024px) {
+  .promo__video {
+    width: min(100%, 680px);
+    margin-inline: auto;
+  }
+}
+
+/* 모바일 화면 */
+@media (max-width: 767px) {
+  .promo__video {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    margin: 34px auto;
+  }
+
+  .promo__video iframe {
+    width: 100%;
+    height: 100%;
+  }
+}
