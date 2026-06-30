@@ -134,6 +134,15 @@
             <br />
             <strong>자세한 내용은 세계관 위키에서 확인하실 수 있습니다.</strong>
           </p>
+          <div class="button-list">
+            <a
+              class="link-button"
+              href="https://rebirthwikipage.vercel.app/"
+              target="_blank"
+              rel="noopener noreferrer"
+              >세계관 위키 바로가기
+            </a>
+          </div>
         </section>
 
         <!-- 04. 활동 가이드 -->
@@ -287,7 +296,7 @@
             바랍니다. 가독성을 해치지 않는 선에서 과하지 않은 프로필 꾸미기가
             가능합니다.
           </p>
-
+          <img alt="지정복" src="img\환생원 자료 모음\지정복.png" />
           <ul class="text-list">
             <li>패스워드가 걸린 외부링크의 제출을 금합니다. (ex. 티스토리)</li>
             <li>외부링크 제출 시 게시글에 [이름/성별] 기재가 필수입니다.</li>
@@ -302,67 +311,94 @@
             <li>비밀 프로필 문서는 반드시 비밀 댓글로 제출 바랍니다.</li>
           </ul>
 
-          <div class="button-list">
-            <a
-              class="link-button"
-              href="#https://docs.google.com/document/d/1cFD_CWrmO6_B1aEL9unqyASZnwdk2zMCy4dq3liwV6I/edit?tab=t.0"
-              >공개 프로필 구글 독스 링크
-            </a>
-          </div>
+          <!-- =======================================================
+     PROFILE TEMPLATE: 프로필 양식
+     ======================================================= -->
+          <section class="profile-area">
+            <div class="profile-link-area">
+              <a
+                class="link-button"
+                href="#"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                공개 프로필 구글 독스 링크
+              </a>
+            </div>
 
-          <div class="form-box">
-            <h4>프로필 양식</h4>
+            <article class="profile-template">
+              <header class="profile-template__head">
+                <h2>프로필 양식</h2>
 
-            <dl class="template-list" id="profile-template">
-              <div class="template-row">
-                <dt>한마디</dt>
-                <dd>“(한마디)”</dd>
+                <div class="profile-template__action">
+                  <button
+                    class="profile-template__copy"
+                    type="button"
+                    aria-label="프로필 양식 복사"
+                  >
+                    <img
+                      src="img\환생원 자료 모음\icon_2A3B57.svg"
+                      alt="프로필 양식 복사 아이콘"
+                    />
+                  </button>
+
+                  <p class="profile-template__toast" aria-live="polite">
+                    복사되었습니다.
+                  </p>
+                </div>
+              </header>
+
+              <div class="profile-template__table">
+                <div class="profile-template__row">
+                  <strong>한마디</strong>
+                  <span>“(한마디)”</span>
+                </div>
+
+                <div class="profile-template__row">
+                  <strong>이름</strong>
+                  <span>장난식, 불쾌함을 유발하는 이름 불가.</span>
+                </div>
+
+                <div class="profile-template__row">
+                  <strong>성별</strong>
+                  <span>only xx, xy</span>
+                </div>
+
+                <div class="profile-template__row">
+                  <strong>나이</strong>
+                  <span>만 18세~29세. only 성인.</span>
+                </div>
+
+                <div class="profile-template__row">
+                  <strong>키, 몸무게</strong>
+                  <span>정상적인 키와 체중만 취급. 표준/미용 표기 허용.</span>
+                </div>
+
+                <div class="profile-template__row">
+                  <strong>외관</strong>
+                  <span>안 보이는 부분 서술.</span>
+                </div>
+
+                <div class="profile-template__row">
+                  <strong>성격</strong>
+                  <span>키워드 3개 이상 또는 30자 이상 서술.</span>
+                </div>
+
+                <div class="profile-template__row">
+                  <strong>특징</strong>
+                  <span>호불호, 취미, 특기, 기타 사항 등. 공란 가능.</span>
+                </div>
+
+                <div class="profile-template__row">
+                  <strong>선관</strong>
+                  <span>
+                    최대 3명. 유성애적 관계 금지. 기숙사 룸메이트 선관의 경우
+                    반드시 표기.
+                  </span>
+                </div>
               </div>
-
-              <div class="template-row">
-                <dt>이름</dt>
-                <dd>장난식, 불쾌함을 유발하는 이름 불가.</dd>
-              </div>
-
-              <div class="template-row">
-                <dt>성별</dt>
-                <dd>only xx, xy</dd>
-              </div>
-
-              <div class="template-row">
-                <dt>나이</dt>
-                <dd>만 18세~29세. only 성인.</dd>
-              </div>
-
-              <div class="template-row">
-                <dt>키, 몸무게</dt>
-                <dd>정상적인 키와 체중만 취급. 표준/미용 표기 허용.</dd>
-              </div>
-
-              <div class="template-row">
-                <dt>외관</dt>
-                <dd>안 보이는 부분 서술.</dd>
-              </div>
-
-              <div class="template-row">
-                <dt>성격</dt>
-                <dd>키워드 3개 이상 또는 30자 이상 서술.</dd>
-              </div>
-
-              <div class="template-row">
-                <dt>특징</dt>
-                <dd>호불호, 취미, 특기, 기타 사항 등. 공란 가능.</dd>
-              </div>
-
-              <div class="template-row">
-                <dt>선관</dt>
-                <dd>
-                  최대 3명. 유성애적 관계 금지. 기숙사 룸메이트 선관의 경우
-                  반드시 표기.
-                </dd>
-              </div>
-            </dl>
-          </div>
+            </article>
+          </section>
         </section>
 
         <!-- 19. 비밀 문서 -->
@@ -373,6 +409,31 @@
             캐릭터의 비밀 설정 및 오너 서약, 오너 정보 등은 아래 첨부된 문서를
             통해 비밀 댓글로 제출하여야 합니다.
           </p>
+
+          <div class="button-list">
+            <a
+              class="link-button"
+              target="_blank"
+              rel="noopener noreferrer"
+              href="https://docs.google.com/document/d/18-tE2NIBc7TgCpIII4oOBdynNlEYaG7W8QLBzrroWNs/edit?tab=t.ma4xkuw7uqk5#heading=h.oed3xjccf77o0"
+              >비밀 프로필 구글 독스 링크
+            </a>
+            <a
+              class="link-button"
+              href="img\환생원 자료 모음\환생원 비밀프로필_생전기록열람조서.hwp"
+              download
+            >
+              비밀 프로필 HWP
+            </a>
+
+            <a
+              class="link-button"
+              href="img\환생원 자료 모음\환생원 비밀프로필_생전기록열람조서 (1).docx"
+              download
+            >
+              비밀 프로필 docx
+            </a>
+          </div>
         </section>
 
         <!-- 트리거 워닝 시작: 여기부터 다크모드 전환 -->
@@ -390,10 +451,13 @@
           </p>
         </section>
 
-        <!-- 20. 트리거 소재 -->
+        <!-- =======================================================
+     TRIGGER: 트리거 소재 목록 열람
+     ======================================================= -->
         <section class="notice-section reveal" data-no="20">
-          <p class="text-label">TREIGGER MATERIAL</p>
+          <p class="text-label">TRIGGER MATERIAL</p>
           <h3>공개될 수 있는 트리거 소재</h3>
+
           <p>
             본 커뮤니티의 모든 캐릭터는 이미 사망한 캐릭터입니다. 또한 비밀 설정
             공개가 주요 시스템으로 활용되기 때문에, 러닝 중 공개되는 내용이
@@ -404,6 +468,7 @@
 
           <details class="toggle-box">
             <summary>트리거 소재 목록 열람</summary>
+
             <div class="toggle-content">
               사망, 자살, 자해, 사고사, 재난, 폭력, 상해, 학교폭력, 가정폭력,
               아동학대, 방임, 범죄, 범죄 피해, 차별, 혐오 표현, 욕설, 비속어,
@@ -415,12 +480,13 @@
 
         <!-- 21. 설정 금지 요소 -->
         <section class="notice-section reveal" data-no="21">
-          <p class="text-label">TREIGGER MATERIAL</p>
+          <p class="text-label">TRIGGER MATERIAL</p>
           <h3>설정 금지 요소</h3>
           <p>아래 요소는 캐릭터 설정으로 작성할 수 없습니다.</p>
 
           <details class="toggle-box">
             <summary>설정 금지 소재 열람</summary>
+
             <div class="toggle-content">
               성폭력 가해, 아동 대상 성범죄, 근친상간, 수간, 식인, 고문, 신체
               훼손 및 고어 중심 설정, 실존 범죄 및 실존 범죄자 기반 설정, 특정
@@ -459,7 +525,7 @@
         <section class="footer__top">
           <figure class="footer__mark">
             <img
-              src="img/환생원 자료 모음/로고.png"
+              src="img\환생원 자료 모음\로고.svg"
               alt="청년환생교육원 푸터 로고"
             />
           </figure>

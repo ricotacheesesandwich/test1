@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="1000" viewBox="0 0 1000 1000">
+  <rect width="1000" height="1000" fill="#FFFFFF"/>
+  <g transform="matrix(2.37500000 0 0 2.37500000 -160.25000000 86.75000000)">
+    <rect x="122" y="63" width="312" height="222" rx="26" ry="26" fill="none" stroke="#8FA3B8" stroke-width="8"/>
+    <circle cx="204.5" cy="144.5" r="23.5" fill="none" stroke="#8FA3B8" stroke-width="8"/>
+    <path d="M158 228 V218 C158 198 177 181 204 181 C231 181 250 198 250 218 V228 H158 Z" fill="none" stroke="#8FA3B8" stroke-width="8" stroke-linejoin="round" stroke-linecap="round"/>
+    <line x1="287" y1="129" x2="397" y2="129" stroke="#8FA3B8" stroke-width="8" stroke-linecap="round"/>
+    <line x1="287" y1="152" x2="397" y2="152" stroke="#8FA3B8" stroke-width="8" stroke-linecap="round"/>
+    <line x1="287" y1="174" x2="397" y2="174" stroke="#8FA3B8" stroke-width="8" stroke-linecap="round"/>
+    <line x1="287" y1="196" x2="397" y2="196" stroke="#8FA3B8" stroke-width="8" stroke-linecap="round"/>
+    <line x1="287" y1="219" x2="397" y2="219" stroke="#8FA3B8" stroke-width="8" stroke-linecap="round"/>
+  </g>
+</svg>

@@ -246,6 +246,18 @@ body.is-flower-mode .site-nav a::after {
   background: #db879a;
 }
 
+.closing-note {
+  margin-top: 70px;
+  padding-top: 0;
+  border-top: 0;
+  color: rgba(0, 0, 0, 0.76);
+  font-size: 24px;
+  font-weight: 800;
+  line-height: 2;
+  letter-spacing: -0.045em;
+  text-align: center;
+}
+
 /* ---------------------------------------------------------
    03. Page Frame / Hero
    --------------------------------------------------------- */

@@ -12,12 +12,66 @@ document.addEventListener("DOMContentLoaded", () => {
   document.body.classList.add("js-ready");
   document.body.classList.add("motion-ready");
 
+  initExternalLinkReturnReset();
   initAlarmModal();
   initScrollRevealMotion();
   initHeaderMotion();
   initScheduleSlider();
   initEducationCardPopup();
 });
+
+/* ---------------------------------------------------------
+   External Link Return Reset
+   - 외부 링크 클릭 후 다시 원래 탭으로 돌아왔을 때 화면 맨 위로 이동
+   --------------------------------------------------------- */
+function initExternalLinkReturnReset() {
+  const resetKey = "rebirth_external_link_clicked";
+
+  document.querySelectorAll('a[target="_blank"]').forEach((link) => {
+    link.addEventListener("click", () => {
+      sessionStorage.setItem(resetKey, "true");
+    });
+  });
+
+  window.addEventListener("focus", () => {
+    const shouldReset = sessionStorage.getItem(resetKey) === "true";
+
+    if (!shouldReset) return;
+
+    sessionStorage.removeItem(resetKey);
+
+    if (document.activeElement instanceof HTMLElement) {
+      document.activeElement.blur();
+    }
+
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "auto",
+    });
+  });
+
+  window.addEventListener("pageshow", (event) => {
+    const navigationEntries = performance.getEntriesByType("navigation");
+    const navigationType = navigationEntries[0]?.type;
+
+    const isBackForward = event.persisted || navigationType === "back_forward";
+
+    if (!isBackForward) return;
+
+    setTimeout(() => {
+      window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: "auto",
+      });
+
+      if (document.activeElement instanceof HTMLElement) {
+        document.activeElement.blur();
+      }
+    }, 0);
+  });
+}
 
 /* ---------------------------------------------------------
    00. Hero Intro Motion

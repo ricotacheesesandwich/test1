@@ -672,21 +672,237 @@ h1 {
 }
 
 /* ---------------------------------------------------------
-   09. Profile Template
+   Profile Template
+   - 프로필 양식 / 구글독스 링크 버튼
    --------------------------------------------------------- */
-.template-list {
-  display: grid;
-  gap: 0;
-  margin-top: 40px;
-  border-top: 1px solid var(--color-line);
+
+.profile-area {
+  width: 100%;
+  max-width: none;
+  margin: 0;
 }
 
-.template-row {
+.profile-link-area {
+  width: 100%;
+  margin-top: 54px;
+  margin-bottom: 40px;
+}
+
+.profile-link-area .link-button {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 54px;
+  padding: 0 24px;
+  border: 1px solid rgba(0, 0, 0, 0.13);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.32);
+  color: var(--color-navy);
+  text-decoration: none;
+  font-family: inherit;
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.profile-link-area .link-button:hover,
+.profile-link-area .link-button:focus-visible {
+  background: rgba(255, 255, 255, 0.72);
+  border-color: rgba(0, 0, 0, 0.22);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px rgba(31, 44, 67, 0.08);
+}
+
+.profile-template {
+  width: 100%;
+  max-width: none;
+  padding: 68px 72px 40px;
+  border: 1px solid rgba(42, 59, 87, 0.14);
+  border-radius: 28px;
+  background: #f7f8fa;
+}
+
+.profile-template__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 58px;
+}
+
+.profile-template__head h2 {
+  margin: 0;
+  color: #2a3b57;
+  font-size: 46px;
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.055em;
+}
+
+.profile-template__icon {
+  width: 65px;
+  height: 65px;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile-template__icon img {
+  display: block;
+  width: 80%;
+  height: 80%;
+  object-fit: contain;
+}
+
+.profile-template__table {
+  border-top: 1px solid rgba(42, 59, 87, 0.18);
+}
+
+.profile-template__row {
   display: grid;
-  grid-template-columns: 160px minmax(0, 1fr);
-  gap: 28px;
-  padding: 24px 0;
-  border-bottom: 1px solid var(--color-line);
+  grid-template-columns: 180px 1fr;
+  gap: 54px;
+  padding: 34px 0;
+  border-bottom: 1px solid rgba(42, 59, 87, 0.16);
+}
+
+.profile-template__row strong {
+  color: #2a3b57;
+  font-size: 24px;
+  font-weight: 800;
+  line-height: 1.6;
+}
+
+.profile-template__row span {
+  color: rgba(0, 0, 0, 0.58);
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 1.8;
+}
+
+/* ---------------------------------------------------------
+   Profile Template Copy Toast
+   - 복사 완료 안내 문구 위치 조정
+   --------------------------------------------------------- */
+
+.profile-template {
+  position: relative;
+}
+
+.profile-template__action {
+  position: static;
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile-template__toast {
+  position: absolute;
+  top: 350px;
+  left: 50%;
+  z-index: 20;
+  min-width: 220px;
+  margin: 0;
+  padding: 18px 28px;
+  border-radius: 999px;
+  background: rgba(42, 59, 87, 0.96);
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 800;
+  line-height: 1;
+  text-align: center;
+  box-shadow:
+    0 18px 44px rgba(0, 0, 0, 0.24),
+    0 0 0 1px rgba(255, 255, 255, 0.24) inset;
+  opacity: 0;
+  visibility: hidden;
+  transform: translate(-50%, -10px) scale(0.94);
+  transition:
+    opacity 0.22s ease,
+    transform 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+    visibility 0.22s ease;
+  pointer-events: none;
+}
+
+.profile-template__toast::before {
+  content: "✓";
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  margin-right: 8px;
+  border-radius: 50%;
+  background: #ffffff;
+  color: #2a3b57;
+  font-size: 15px;
+  font-weight: 900;
+  vertical-align: -1px;
+}
+
+.profile-template__toast.is-visible {
+  opacity: 1;
+  visibility: visible;
+  color: #ffffff;
+
+  transform: translate(-50%, 0) scale(1);
+}
+
+/* ---------------------------------------------------------
+   Profile Template Copy Icon Frame Remove
+   - 프로필 양식 복사 아이콘 사각 프레임 제거
+   --------------------------------------------------------- */
+
+.profile-template__action {
+  position: static;
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+button.profile-template__copy {
+  all: unset;
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  line-height: 0;
+}
+
+button.profile-template__copy img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  outline: 0;
+  box-shadow: none;
+  object-fit: contain;
+  pointer-events: none;
+}
+
+button.profile-template__copy:hover {
+  transform: translateY(-2px);
+}
+
+button.profile-template__copy:focus,
+button.profile-template__copy:focus-visible,
+button.profile-template__copy:active {
+  border: 0;
+  outline: 0;
+  background: transparent;
+  box-shadow: none;
 }
 
 /* ---------------------------------------------------------
@@ -735,6 +951,73 @@ h1 {
   line-height: 2;
   letter-spacing: -0.045em;
   text-align: center;
+}
+
+/* ---------------------------------------------------------
+   Toggle Box
+   - 트리거 소재 / 설정 금지 소재 공통 열람 박스
+   --------------------------------------------------------- */
+
+.notice-section .toggle-box {
+  width: 100%;
+  margin-top: 42px;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 28px;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.notice-section .toggle-box summary {
+  height: 84px;
+  min-height: 84px;
+  padding: 0 52px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  color: rgba(255, 255, 255, 0.88);
+  font-size: 22px;
+  font-weight: 800;
+  line-height: 1;
+  cursor: pointer;
+  list-style: none;
+}
+
+.notice-section .toggle-box summary::-webkit-details-marker {
+  display: none;
+}
+
+.notice-section .toggle-box summary::before {
+  content: "▶";
+  flex: 0 0 auto;
+  color: #e97883;
+  font-size: 18px;
+  line-height: 1;
+  transform: rotate(0deg);
+  transition: transform 0.24s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.notice-section .toggle-box[open] summary::before {
+  transform: rotate(90deg);
+}
+
+.notice-section .toggle-content {
+  height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(-4px);
+  padding: 0 52px;
+  color: rgba(255, 255, 255, 0.64);
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 2.05;
+  letter-spacing: -0.03em;
+  will-change: height, opacity, transform;
+}
+
+.notice-section .toggle-box[open] .toggle-content {
+  margin-top: -10px;
+  padding: 0 52px 34px;
 }
 
 /* ---------------------------------------------------------
